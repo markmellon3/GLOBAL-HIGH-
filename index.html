@@ -1,0 +1,2209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Basic Meta -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Site Verification -->
+  <meta name="google-site-verification" content="r9vWkx472bObWUubiQJrmi8GW-BUEqgxEJ2mKT7y3Wc" />
+
+  <!-- Title -->
+  <title>GLOBAL HIGH SCHOOL</title>
+
+  <!-- Favicon -->
+  <!-- Favicon -->
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" href="https://i.ibb.co/mrWQCrrb/blob.jpg" sizes="512x512">
+<link rel="apple-touch-icon" href="https://ik.imagekit.io/s95tumxuk/1763291103188.jpg">
+  <!-- Optional SEO Enhancements -->
+  <meta name="description" content="Global High School – Excellence in Education and Character Development." />
+  <meta name="theme-color" content="#0a3d62" />
+</head>
+
+<style>
+/* ================= ROOT VARIABLES ================= */
+:root {
+  --bg: #f8fbff;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --accent: #0b63ff;
+  --accent-2: #2a9d8f;
+  --text: #0b1220;
+  --radius: 12px;
+  --maxw: 1100px;
+  --gap: 18px;
+  --shadow-light: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-medium: 0 8px 24px rgba(0,0,0,0.08);
+  --transition: 0.3s ease-in-out;
+}
+
+/* ================= BASE ================= */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',sans-serif;
+  background:#f8fbff;
+  color:var(--text);
+  line-height:1.6;
+}
+
+/* ================= CONTAINERS ================= */
+.container{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:28px;
+}
+
+/* ================= BUTTONS ================= */
+.btn{
+  display:inline-block;
+  background:var(--accent);
+  color:#fff;
+  padding:10px 18px;
+  border-radius:var(--radius);
+  font-weight:600;
+  text-decoration:none;
+  transition:var(--transition);
+}
+.btn:hover{
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  box-shadow:var(--shadow-light);
+}
+.btn.outline{
+  border:2px solid var(--accent);
+  color:var(--accent);
+  background:transparent;
+}
+.btn.outline:hover{
+  background:var(--accent);
+  color:white;
+}
+.btn-sm{
+  padding:6px 12px;
+  font-size:0.85rem;
+}
+
+/* ================= HEADER ================= */
+.site-header{
+  position:sticky;
+  top:0;
+  width:100%;
+  background:#ffffff17;
+  backdrop-filter:blur(10px);
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  z-index:1000;
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 20px;
+}
+.brand{
+  font-size:1.5rem;
+  font-weight:700;
+  color:var(--accent);
+  text-decoration:none;
+}
+.main-nav{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.main-nav a{
+  padding:8px 12px;
+  border-radius:8px;
+  color:var(--text);
+  text-decoration:none;
+  font-weight:500;
+}
+.main-nav a:hover{
+  background:var(--accent);
+  color:#fff;
+  box-shadow:0 6px 15px rgba(11,99,255,0.2);
+}
+
+/* ================= MOBILE NAV ================= */
+.mobile-toggle{
+  display:none;
+  font-size:1.4rem;
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:var(--text);
+}
+
+/* ================= HERO SECTION WITH BACKGROUND ================= */
+.hero{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  border-radius:15px;
+  margin-top:0px;
+
+  background-image:url("   https://ik.imagekit.io/s95tumxuk/PLC/1763336127446.jpg    ");
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  overflow:hidden;
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+  z-index:1;
+}
+
+.hero-inner{
+  position:relative;
+  z-index:2;
+  color:#fff;
+}
+
+.hero h1{
+  font-size:2.8rem;
+  font-weight:800;
+}
+.hero p{
+  margin-top:10px;
+  color:#e0e0e0;
+  font-size:1.2rem;
+}
+
+/* Buttons inside hero */
+.hero .btn{
+  margin-top:15px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* HERO SECTION (parent) */
+.hero {
+  position: relative;
+  min-height: 100vh;          /* Full screen hero */
+  display: flex;
+  align-items: center;        /* Vertical center */
+  justify-content: center;    /* Horizontal center */
+}
+
+/* LOGO WRAPPER */
+.hero-logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* LOGO CIRCLE */
+.hero-logo-circle {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* LOGO IMAGE */
+.hero-logo-circle img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+/* RESPONSIVE SIZE */
+@media (max-width: 768px) {
+  .hero-logo-circle {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* ================= SECTIONS ================= */
+.section{
+  padding:60px 0;
+}
+.section.alt{
+  background:#f3f6ff;
+}
+.card{
+  background:var(--card);
+  padding:20px;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-light);
+  transition:var(--transition);
+}
+.card:hover{
+  box-shadow:var(--shadow-medium);
+  transform:translateY(-3px);
+}
+
+/* GRID LAYOUT */
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:var(--gap);
+}
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:var(--gap);
+}
+
+/* ================= VIDEO ================= */
+.video-wrap iframe{
+  width:100%;
+  height:380px;
+  border:none;
+  border-radius:var(--radius);
+}
+
+/* ================= FOOTER ================= */
+.site-footer{
+  padding:28px 0;
+  margin-top:40px;
+  text-align:center;
+  color:var(--muted);
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:900px){
+  .grid-3,.grid-2{grid-template-columns:1fr}
+  .mobile-toggle{display:block}
+  .main-nav{
+    display:none;
+    flex-direction:column;
+    background:#fff;
+    position:absolute;
+    right:20px;
+    top:70px;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.1);
+  }
+  .main-nav.show{display:flex}
+}
+
+/* ================= HERO ================= */
+.hero-logo-circle {
+  width: 120px;
+  height: 120px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Makes the image fit inside */
+}
+
+.hero-logo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Adjust image nicely */
+}
+
+/* ================= MINISTER ================= */
+.ministry-card {
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.ministry-slider {
+  width: 100%;
+  height: 150px; /* medium size */
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.ministry-slider img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: opacity 1s ease;
+  cursor: pointer;
+}
+
+.ministry-slider img.active {
+  opacity: 1;
+}
+
+/* POPUP OVERLAY - dim background only */
+#imagePopup {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.65); /* darker background but not too strong */
+  justify-content: center;
+  align-items: center;
+}
+
+/* POPUP BOX */
+#popupImg {
+  width: 60%;      /* smaller than full screen */
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  animation: zoomIn 0.3s ease;
+}
+
+/* Close button */
+#closePopup {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.ministry-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.2s;
+}
+
+.ministry-link:hover .ministry-card {
+  transform: scale(1.03);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* ================= FOOTER================= */
+
+.main-footer {
+    background: #e5e5e5;  /* Light-Medium Gray */
+    color: #333;          /* Dark text for contrast */
+    padding: 40px 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-section h3 {
+    color: #222;
+    margin-bottom: 10px;
+}
+
+.footer-section ul li {
+    list-style: none;
+    margin: 6px 0;
+}
+
+.footer-section a {
+    color: #333;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-section a:hover {
+    color: #000;
+}
+
+.footer-section i {
+    margin-right: 8px;
+    color: #555; /* Subtle gray icon color */
+}
+
+.social-icons {
+    margin-top: 15px;
+}
+
+.social-icons .social-link {
+    font-size: 20px;
+    margin-right: 15px;
+    color: #333;
+    transition: 0.3s;
+}
+
+.social-icons .social-link:hover {
+    color: #000;
+}
+
+.map-container {
+    margin-top: 10px;
+    background: #d4d4d4; /* Slight contrast */
+    padding: 5px;
+    border-radius: 8px;
+}
+
+copyright {
+    text-align: center;
+    margin-top: 25px;
+    color: #444;
+    border-top: 1px solid #bbb;
+    padding-top: 15px;
+}
+/* Circular logo container */
+.logo{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  overflow:hidden;
+  flex-shrink:0;
+  background:#f2f2f2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* Image inside circle */
+.logo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+
+
+/* Responsive */
+@media(max-width:600px){
+  .logo{
+    width:44px;
+    height:44px;
+  }
+  .brand{
+    font-size:1rem;
+  }
+}
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sliders = document.querySelectorAll(".ministry-slider");
+
+    sliders.forEach(slider => {
+      const images = slider.querySelectorAll("img");
+      let index = 0;
+      images[index].classList.add("active");
+
+      setInterval(() => {
+        images[index].classList.remove("active");
+        index = (index + 1) % images.length;
+        images[index].classList.add("active");
+      }, 5000);
+    });
+
+    // POPUP LOGIC
+    const popup = document.getElementById("imagePopup");
+    const popupImg = document.getElementById("popupImg");
+    const closePopup = document.getElementById("closePopup");
+
+    document.querySelectorAll(".slide-img").forEach(img => {
+      img.addEventListener("click", () => {
+        popup.style.display = "flex";
+        popupImg.src = img.src;
+      });
+    });
+
+    closePopup.addEventListener("click", () => {
+      popup.style.display = "none";
+    });
+
+    popup.addEventListener("click", (e) => {
+      if (e.target === popup) popup.style.display = "none";
+    });
+  });
+</script>
+<!-- PushAlert Unified Code -->
+<script type="text/javascript">
+    (function(d, t) {
+        var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+        g.src = "https://cdn.pushalert.co/unified_4cb799f312f2b38ba5913da7c4d271b7.js";
+        s.parentNode.insertBefore(g, s);
+    }(document, "script"));
+</script>
+<!-- End PushAlert Unified Code -->
+ 
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="header-inner container">
+    <div class="logo">
+  <img 
+    src="https://i.ibb.co/mrWQCrrb/blob.jpg"
+    alt="GHS Logo"
+  >
+</div>
+    <a class="brand" href="#"> </a>
+
+    <nav id="mainNav" class="main-nav">
+  <a href="#about">ABOUT US</a>
+  <a href="#beliefs">ACADEMICS</a>
+  <a href="#ministries">ADMISSIONS</a>
+  <a href="gallery.html" class="nav-btn">GALLERY</a>
+  <a href="documents.html">DOCUMENTS</a>
+  <a href="news.html">NEWS</a>
+  <a href="#contact">CONTACTS</a>
+
+</nav>
+
+    <button id="mobileToggle" class="mobile-toggle">☰</button>
+  </div>
+  
+</header>
+
+<!-- ================= HERO ================= -->
+<section id="home" class="hero">
+  <div class="hero-overlay"></div>
+  <div class="container hero-inner">
+
+    <!-- LOGO CIRCLE -->
+    <div class="hero-logo-wrapper">
+      <div class="hero-logo-circle">
+        <img src="https://i.ibb.co/mrWQCrrb/blob.jpg " alt="Church Logo" />
+      </div>
+    </div>
+
+    <h1>GLOBAL HIGH SCHOOL ENTEBBE </h1>
+    <p>STRIVE TO ACHIEVE</p>
+
+    <a class="btn outline" href="#events">APPLY NOW</a>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about" class="section container">
+    <!-- Flames Image -->
+    <div class="about-image">
+        <img src="  https://i.ibb.co/mrWQCrrb/blob.jpg " alt="Flames" style="width:50%; max-width:500px; border-radius:12px; margin-bottom:20px;">
+    </div>
+<p1>WHO WE ARE </p1>
+    <h2> GLOBAL HIGH SCHOOL </h3>
+  <p>Excellence
+Global High School Entebbe stands as a beacon of learning, combining traditional values with modern educational methodologies. We don't just teach; we inspire.
+
+Our campus is designed to foster creativity, critical thinking, and physical well-being, ensuring every student leaves ready to conquer the world. </p>
+
+<a href="javascript:void(0)" class="nav-history-btn" onclick="openHistoryModal()">
+  READ OUR HISTORY ➡️
+</a>
+
+<!-- History Modal -->
+<div id="historyModal" class="modal-overlay" onclick="closeHistoryModal(event)">
+  <div class="modal-content history-modal">
+
+    <!-- School Logo -->
+    <div class="history-header">
+      <img src="https://i.ibb.co/mrWQCrrb/blob.jpg " alt="School Logo" class="school-logo">
+      <h3>Our History</h3>
+    </div>
+
+    <!-- History Cards -->
+    <div class="history-cards">
+      <div class="history-card">
+        <h4>Foundation</h4>
+        <p>The school was founded with a vision to nurture academic excellence,
+           character development, and leadership.</p>
+        <span class="history-date">Established: 2023</span>
+      </div>
+
+      <div class="history-card">
+        <h4>Expansion</h4>
+        <p>Growth in facilities, staff, and academic programs enabled us to serve
+           a diverse and growing student community.</p>
+      </div>
+
+      <div class="history-card">
+        <h4>Excellence</h4>
+        <p>Consistent academic performance, discipline, and co-curricular success
+           have positioned the school as a center of excellence.</p>
+      </div>
+
+      <div class="history-card">
+        <h4>Awards & Recognition</h4>
+        <p>Recognized for outstanding academic results, discipline, and leadership
+           development.</p>
+      </div>
+
+      <div class="history-card">
+        <h4>Dedication</h4>
+        <p>Our teachers, students, and parents remain dedicated to excellence,
+           integrity, and lifelong learning.</p>
+      </div>
+    </div>
+
+    <!-- Core Values -->
+    <h4 class="section-title">Our Core Values</h4>
+    <div class="values-grid">
+      <div class="value-card">Integrity</div>
+      <div class="value-card">God Fearing</div>
+      <div class="value-card">Excellence</div>
+      <div class="value-card">Discipline</div>
+      <div class="value-card">Innovation</div>
+      <div class="value-card">Time Management</div>
+    </div>
+
+    <!-- Headteacher Section -->
+    <h4 class="section-title">Message from the Headteacher</h4>
+    <div class="headteacher-section">
+      <img src="https://i.ibb.co/mrWQCrrb/blob.jpg" alt="Headteacher" class="headteacher-img">
+      <p>
+        “At our school, we believe in nurturing learners who are academically
+        strong, morally upright, and prepared to lead. Together with our
+        dedicated staff and supportive parents, we continue to shape a future
+        built on excellence, discipline, and innovation.”
+      </p>
+    </div>
+
+    <!-- Close Button -->
+    <button class="close-btn" onclick="closeHistoryModal()">Close</button>
+  </div>
+</div> 
+
+<!-- Optional CSS for better style -->
+<style>
+.section.container {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.section h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.section p {
+    font-size: 1.1rem;
+    color: #34495e;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.btn-learn-more:hover {
+    background-color: #d35400;
+}
+</style>
+<!-- ================= VISIONS================= -->
+<section id="beliefs" class="section container">
+
+    <!-- Our Vision -->
+    <div class="card card--vision hover-card">
+        <h2>Our Vision</h2>
+        <p>To be a vibrant, Spirit-filled community where the promises of God are tangibly realized, and every person's divinely-inspired dreams come to fruition.</p>
+    </div>
+     <!-- Our Vision -->
+    <div class="card card--vision hover-card">
+        <h2>Our Misson</h2>
+        <p>To be a vibrant, Spirit-filled community where the promises of God are tangibly realized, and every person's divinely-inspired dreams come to fruition.</p>
+    </div>
+
+    
+    <!-- 4 Building Blocks with Icons -->
+    <section id="blocks" class="section section--light">
+      <p>ACADEMIC EXCELLENCE </p>
+  <h2> CURRICULUM</h2>
+
+  <div class="blocks-list">
+    <article class="block-item hover-card">
+      <span class="block-number">O-Level (UCE)</span>
+
+      <h3>
+        Comprehensive four-year lower secondary curriculum focusing on sciences,
+        arts, and vocational studies. We emphasize critical thinking and practical
+        application.
+      </h3>
+
+      <p>✔️ Science & Technology Focus</p>
+      <p>✔️Co-curriculum studys</p>
+      <p>✔️ Vocational Skills and work </p>
+
+      <!-- View Subjects Button -->
+      <button class="view-subjects-btn" onclick="openSubjectsModal()">
+        <h3>VIEW SUBJECTS </h3>
+      </button>
+    </article>
+  </div>
+</section>
+
+<!-- Modal -->
+<div id="subjectsModal" class="modal-overlay" onclick="closeSubjectsModal(event)">
+  <div class="modal-content">
+    <h3>O-Level Subjects</h3>
+    <ul>
+      <li>MATHEMATICS </li>
+      <li>ENGLISH </li>
+      <li>GEOGRAPHY </li>
+      <li>PHYSICS </li>
+      <li>BIOLOGY </li>
+      <li>CHEMISTRY </li>
+      <li>ART </li>
+      <li>ICT</li>
+    </ul>
+
+    <button class="close-btn" onclick="closeSubjectsModal()">Close</button>
+  </div>
+</div>
+           <article class="block-item hover-card">
+  <span class="block-number">A-Level (UACE)</span>
+
+  <h3>
+    A specialized two-year program designed to prepare students for university
+    education. We offer tailored combinations in Sciences, Arts, and Humanities.
+  </h3>
+
+  <p>✔️ Pre-University Prep</p>
+  <p>✔️ Leadership Training</p>
+  <p>✔️ Career Guidance</p>
+
+  <!-- View Subjects Button (FIXED) -->
+  <button class="view-subjects-btn" onclick="openALevelModal()">
+    <h3>VIEW COMBINATIONS </h3>
+  </button>
+</article>     
+        </div>       
+    </section>
+    
+   <!-- A-Level Modal -->
+<div id="aLevelSubjectsModal" class="modal-overlay" onclick="closeALevelModal(event)">
+  <div class="modal-content">
+    <h3>A-Level Subject Combinations</h3>
+    <ul>
+      <li>HEG (History, Economics, Geography)</li>
+       <li>MEG (Mathematics, Economics, Geography)</li> 
+       <li>BCM (Biology, Chemistry, Mathematics)</li>
+        <li>PCB (Physics, Chemistry, Biology)</li>
+    </ul>
+
+    <button class="close-btn" onclick="closeALevelModal()">Close</button>
+  </div>
+</div>
+
+    <button class="close-btn" onclick="closeSubjectsModal()">Close</button>
+  </div>
+</div>
+
+<!-- ================= CSS ================= -->
+<style>
+/* Vision Card */
+.card--vision {
+    background-color: #fbd1bc;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Core Values Section */
+.section--dark {
+    background-color: #2c3e50;
+    padding: 60px 20px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.value-item h4 {
+    color: #f39c12; /* Keep titles colored */
+}
+
+.value-item p {
+    color: #ffffff; /* Paragraphs white */
+}
+
+.value-item i {
+    color: #f39c12;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Building Blocks Section */
+.section--light {
+    background-color: #f9f9f9;
+    padding: 60px 20px;
+    border-radius: 12px;
+}
+
+.blocks-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.block-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.block-item i {
+    margin-bottom: 10px;
+}
+
+.block-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #e67e22;
+    margin-bottom: 10px;
+}
+
+/* Hover Animations */
+.hover-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+}
+
+.hover-icon:hover {
+    transform: scale(1.3);
+    color: #d35400;
+}
+
+/* Learn More Button */
+.btn-learn-more {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #e67e22;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-learn-more:hover {
+    background-color: #d35400;
+}
+
+/* View Subjects Button */
+.view-subjects-btn {
+  margin-top: 12px;
+  background: none;
+  border: none;
+  color: #1a73e8;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.view-subjects-btn:hover {
+  color: #0c4fb3;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modal Box */
+.modal-content {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+  animation: scaleIn 0.25s ease;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.modal-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.modal-content ul li {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+/* Close Button */
+.close-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  background: #ffffff;
+  color: white;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background: #ffffff;
+}
+
+/* Animation */
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+</style>
+
+
+
+<script>
+function openSubjectsModal() {
+  document.getElementById("subjectsModal").style.display = "flex";
+}
+
+function closeSubjectsModal(event) {
+  if (!event || event.target.id === "subjectsModal") {
+    document.getElementById("subjectsModal").style.display = "none";
+  }
+}
+</script>
+
+<script>
+function openALevelModal() {
+  document.getElementById("aLevelSubjectsModal").style.display = "flex";
+}
+
+function closeALevelModal(event) {
+  if (!event || event.target.id === "aLevelSubjectsModal") {
+    document.getElementById("aLevelSubjectsModal").style.display = "none";
+  }
+}
+</script>
+<style>
+.nav-history-btn {
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+}
+
+.nav-history-btn:hover {
+  text-decoration: underline;
+}
+</style>
+<script>
+function openHistoryModal() {
+  document.getElementById("historyModal").style.display = "flex";
+}
+
+function closeHistoryModal(event) {
+  if (!event || event.target.id === "historyModal") {
+    document.getElementById("historyModal").style.display = "none";
+  }
+}
+</script>
+<style>
+.history-modal {
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Header */
+.history-header {
+  text-align: center;
+}
+
+.school-logo {
+  width: 80px;
+  margin-bottom: 10px;
+}
+
+/* History Cards */
+.history-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.history-card {
+  background: #f7f7f7;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.history-card h4 {
+  margin-top: 0;
+}
+
+.history-date {
+  display: block;
+  margin-top: 8px;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+/* Core Values */
+.section-title {
+  text-align: center;
+  margin: 25px 0 10px;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.value-card {
+  background: #1a73e8;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Headteacher */
+.headteacher-section {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.headteacher-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #1a73e8;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .headteacher-section {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+</style>
+
+
+
+
+
+  <!-- ==== SCROLLER WITH INFINITE AUTO-SCROLL ==== -->
+  <div class="events-scroller" id="eventsScroller">
+    <div class="events-track" id="eventsTrack">
+      <!-- Event frames will be injected dynamically from Firebase -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= LIGHTBOX POPUP ================= -->
+<div id="event-lightbox">
+  <div id="event-lightbox-content">
+    <img id="event-lightbox-img" src="" alt="Event Image">
+    <p id="event-lightbox-caption"></p>
+  </div>
+</div>
+
+<style>
+/* ================= GENERAL ================= */
+.section.container {
+  padding: 50px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#events h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c2c2c;
+}
+
+/* ================= SCROLLER ================= */
+.events-scroller {
+  overflow-x: hidden;
+  white-space: nowrap;
+  cursor: grab;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.events-scroller:active {
+  cursor: grabbing;
+}
+
+.events-track {
+  display: inline-flex;
+  gap: 20px;
+}
+
+/* ================= EVENT FRAME ================= */
+.event-frame {
+  min-width: 300px;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.event-frame img {
+  width: 350px;
+  height: 550px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+}
+
+.event-frame img:hover {
+  transform: scale(1.05);
+}
+
+.event-caption {
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ================= LIGHTBOX ================= */
+#event-lightbox {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  cursor: pointer;
+}
+
+#event-lightbox.show {
+  display: flex;
+  animation: fadeIn 0.3s forwards;
+}
+
+#event-lightbox-content {
+  text-align: center;
+  animation: scaleUp 0.3s forwards;
+}
+
+#event-lightbox img {
+  max-width: 90%;
+  max-height: 80vh;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease;
+}
+
+#event-lightbox img:hover {
+  transform: scale(1.02);
+}
+
+#event-lightbox-caption {
+  color: #fff;
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+@keyframes fadeOut { from {opacity:1;} to {opacity:0;} }
+@keyframes scaleUp { from {transform:scale(0.8); opacity:0;} to {transform:scale(1); opacity:1;} }
+@keyframes scaleDown { from {transform:scale(1); opacity:1;} to {transform:scale(0.8); opacity:0;} }
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-database-compat.js"></script>
+
+<!-- ================= STATS SECTION ================= -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  .stats-container {
+    background: #06294b;
+    border-radius: 24px;
+    padding: 60px 40px;
+    max-width: 1200px;
+    margin: 60px auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    border: 1px solid #222244;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px 30px;
+    text-align: center;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .stat-icon {
+    font-size: 3.2rem;
+    color: #f0bc78;
+    margin-bottom: 8px;
+  }
+
+  .stat-number {
+    font-size: 3.8rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #f0bc78;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 800px) {
+    .stats-container {
+      padding: 50px 25px;
+    }
+    .stat-number {
+      font-size: 3rem;
+    }
+    .stat-icon {
+      font-size: 2.8rem;
+    }
+  }
+</style>
+
+<section class="stats-container">
+  <div class="stats-grid">
+
+    <div class="stat-item">
+      <div class="stat-icon"><i class="far fa-calendar-alt"></i></div>
+      <div class="stat-number">2023</div>
+      <div class="stat-label">Founded</div>
+    </div>
+
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fas fa-users"></i></div>
+      <div class="stat-number">1200+</div>
+      <div class="stat-label">Alumni</div>
+    </div>
+
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+      <div class="stat-number">45</div>
+      <div class="stat-label">Awards Won</div>
+    </div>
+
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fas fa-bullseye"></i></div>
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Dedication</div>
+    </div>
+
+  </div>
+</section>
+<!-- ================= END STATS SECTION ================= -->
+<!-- ================= CAMPUS LIFE (FIREBASE DYNAMIC) ================= -->
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  .campus-wrapper {
+    max-width: 1200px;
+    margin: 60px auto;
+    font-family: 'Open Sans', sans-serif;
+    color: #1a1a37;
+  }
+
+  .campus-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+    border-bottom: 3px solid #f0f0f0;
+    padding-bottom: 15px;
+  }
+
+  .campus-subtitle {
+    color: #e63946;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .campus-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    text-transform: uppercase;
+  }
+
+  .campus-link {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    text-decoration: none;
+    color: #1a1a37;
+    border-bottom: 3px solid #1a1a37;
+  }
+
+  .campus-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr 0.8fr;
+    grid-template-rows: 300px 300px;
+    gap: 20px;
+  }
+
+  .campus-item {
+    overflow: hidden;
+    border-radius: 4px;
+    background: #f8f8f8;
+  }
+
+  .campus-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+
+  .campus-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .campus-trophy { grid-row: 1 / 3; }
+  .campus-lab { grid-column: 2 / 4; }
+
+  @media (max-width: 900px) {
+    .campus-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .campus-trophy,
+    .campus-lab {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .campus-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<section class="campus-wrapper">
+  <div class="campus-header">
+    <div>
+      <p class="campus-subtitle">Campus Life</p>
+      <h1 class="campus-title">The Global High Experience</h1>
+    </div>
+    <a href="gallery.html" class="campus-link">VIEW FULL GALLERY</a>
+  </div>
+
+  <div class="campus-grid" id="campusGrid">
+    <!-- Firebase images load here -->
+  </div>
+</section>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+  // ===== FIREBASE INIT =====
+  firebase.initializeApp({
+    apiKey:"AIzaSyBoJdGfyASAGwxVlwqaF7a1aZqp_i6MXFg",
+    authDomain:"global-high-a001d.firebaseapp.com",
+    databaseURL:"https://global-high-a001d-default-rtdb.firebaseio.com",
+    projectId:"global-high-a001d",
+    appId:"1:966103646546:web:cf2198f5b8384ac85d3a8b"
+  });
+
+  const campusGrid = document.getElementById("campusGrid");
+  const campusRef = firebase.database().ref("campusLifeImages");
+
+  // Listen for changes in Firebase and render images
+  campusRef.on("value", snapshot => {
+    campusGrid.innerHTML = "";
+
+    const data = snapshot.val();
+    if (!data) return;
+
+    Object.values(data).forEach(item => {
+      const div = document.createElement("div");
+      div.classList.add("campus-item");
+
+      if (item.type === "trophy") div.classList.add("campus-trophy");
+      if (item.type === "lab") div.classList.add("campus-lab");
+
+      div.innerHTML = `<img src="${item.url}" alt="Campus Image">`;
+      campusGrid.appendChild(div);
+    });
+  });
+</script>
+
+<!-- ================= END CAMPUS LIFE ================= -->
+  
+<!-- =================  EVENTS ================= -->  
+<section id="news-events" style="padding:60px 20px; max-width:1200px; margin:auto;">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-bottom:40px;">
+    <h2 style="font-size:2rem; font-weight:700; margin:0;">NEWS/EVENTS</h2>
+    <a href="news.html" style="text-decoration:none; color:#111; font-weight:500;">VIEW ALL NEWS →</a>
+  </div>
+
+  <!-- Event cards will be injected here -->
+  <div id="events-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px;"></div>
+</section>
+
+<script type="module">
+  // ===== Import Firebase Modules =====
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-analytics.js";
+
+  // ===== Firebase Configuration =====
+  const firebaseConfig = {
+    apiKey: "AIzaSyBoJdGfyASAGwxVlwqaF7a1aZqp_i6MXFg",
+    authDomain: "global-high-a001d.firebaseapp.com",
+    databaseURL: "https://global-high-a001d-default-rtdb.firebaseio.com",
+    projectId: "global-high-a001d",
+    storageBucket: "global-high-a001d.firebasestorage.app",
+    messagingSenderId: "966103646546",
+    appId: "1:966103646546:web:cf2198f5b8384ac85d3a8b",
+    measurementId: "G-46HVXD91PX"
+  };
+
+  // ===== Initialize Firebase =====
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getDatabase(app);
+
+  // ===== Reference to events node =====
+  const eventsRef = ref(db, "events");
+  const eventsContainer = document.getElementById("events-grid");
+
+  // ===== Fetch and display events in real-time =====
+  onValue(eventsRef, (snapshot) => {
+    const data = snapshot.val();
+    eventsContainer.innerHTML = ""; // Clear existing cards
+
+    if (!data) {
+      eventsContainer.innerHTML = "<p style='grid-column:1/-1; text-align:center;'>No events available</p>";
+      return;
+    }
+
+    // Convert object to array and sort by date (newest first)
+    const eventsArray = Object.values(data).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    eventsArray.forEach(event => {
+      // Create card container
+      const card = document.createElement("div");
+      card.style = `
+        position:relative;
+        border-radius:12px;
+        overflow:hidden;
+        box-shadow:0 8px 25px rgba(0,0,0,0.1);
+        background:#fff;
+      `;
+
+      // Populate card content
+      card.innerHTML = `
+        <img src="${event.image}" alt="${event.title}" style="width:100%; height:200px; object-fit:cover;">
+        <div style="position:absolute; top:15px; left:15px; background:#fff; padding:5px 10px; font-weight:700; font-size:0.9rem; border-radius:6px;">
+          ${event.date ? new Date(event.date).toLocaleDateString("en-GB",{day:"2-digit", month:"short"}) : ""}
+        </div>
+        <div style="position:absolute; bottom:15px; left:15px; background:#ff0033; color:#fff; padding:5px 10px; font-size:0.8rem; font-weight:700; border-radius:6px;">
+          ${event.category || ""}
+        </div>
+        <div style="padding:15px;">
+          <h3 style="margin:0 0 10px 0; font-size:1.1rem; font-weight:700;">${event.title}</h3>
+          <a href="${event.link || "#"}" style="color:#555; font-size:0.9rem; text-decoration:none; font-weight:500;">READ MORE →</a>
+        </div>
+      `;
+
+      // Append card to container
+      eventsContainer.appendChild(card);
+    });
+  });
+</script>
+<script>
+  const newsletterForm = document.getElementById('newsletterForm');
+  const statusText = document.getElementById('newsletterStatus');
+
+  const messagesRef = firebase.database().ref('messages');
+
+  newsletterForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const name = document.getElementById('userName').value.trim();
+    const email = document.getElementById('userEmail').value.trim();
+    const message = document.getElementById('userMessage').value.trim();
+
+    if (!name || !email || !message) {
+      statusText.textContent = "Please fill in all fields.";
+      return;
+    }
+
+    const messageData = {
+      name,
+      email,
+      message,
+      replied: false,
+      createdAt: Date.now()
+    };
+
+    messagesRef.push(messageData)
+      .then(() => {
+        statusText.style.color = "green";
+        statusText.textContent = "Message sent successfully!";
+        newsletterForm.reset();
+      })
+      .catch(err => {
+        statusText.style.color = "red";
+        statusText.textContent = "Error sending message.";
+        console.error(err);
+      });
+  });
+</script>
+
+<!-- ================= FOOTER ================= -->
+<footer style="background:#1b0c3b; color:#fff; padding:60px 20px;">
+  <div style="max-width:1200px; margin:auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:40px;">
+    <!-- Logo & About -->
+   <!-- Logo & About -->
+<div>
+  <div style="margin-bottom:15px; display:flex; align-items:center; gap:8px;">
+    <img src="https://i.ibb.co/mrWQCrrb/blob.jpg" alt="Logo" style="height:40px;"> <!-- Main Logo -->
+    
+  </div>
+  
+  <p style="font-size:0.9rem; line-height:1.6;">
+    Empowering young leaders through excellence in education, fostering integrity, innovation, and the courage to shape the future.
+  </p>
+  <div style="margin-top:15px; display:flex; gap:10px;">
+    <a href="#" style="color:#fff; font-size:1.2rem;">&#xf09a;</a> <!-- Facebook -->
+    <a href="#" style="color:#fff; font-size:1.2rem;">&#xf16d;</a> <!-- Instagram -->
+    <a href="#" style="color:#fff; font-size:1.2rem;">&#xf099;</a> <!-- Twitter -->
+  </div>
+</div>
+
+    <!-- Quick Links -->
+    <div>
+      <h4 style="margin-bottom:15px; font-size:1.1rem;">QUICK LINKS</h4>
+      <ul style="list-style:none; padding:0; margin:0; line-height:2;">
+        <li><a href="#" style="color:#fff; text-decoration:none;">About Us</a></li>
+        <li><a href="#" style="color:#fff; text-decoration:none;">Admissions</a></li>
+        <li><a href="#" style="color:#fff; text-decoration:none;">School Fees</a></li>
+        <li><a href="gallery.html" style="color:#fff; text-decoration:none;">Gallery</a></li>
+        <li><a href="#" style="color:#fff; text-decoration:none;">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h4 style="margin-bottom:15px; font-size:1.1rem;">CONTACT US</h4>
+      <p style="font-size:0.9rem;"><strong>Address:</strong>  Entebbe Road, Kampala, Uganda</p>
+      <p style="font-size:0.9rem;"><strong>Phone:</strong> +256770898186</p>
+      <p style="font-size:0.9rem;"><strong>Email:</strong> info@globalhighschoolentebbe.com</p>
+    </div>
+
+ <form 
+  action="mailto:markmellon39@gmail.com"
+  method="GET"
+  style="display:flex; flex-direction:column; gap:10px; margin-top:10px;"
+>
+
+  <input 
+    type="text" 
+    name="name"
+    placeholder="Your Name" 
+    required
+    style="padding:10px; border-radius:6px; border:none;"
+  >
+
+  <input 
+    type="email" 
+    name="email"
+    placeholder="Your Email Address" 
+    required
+    style="padding:10px; border-radius:6px; border:none;"
+  >
+
+  <input 
+    type="tel" 
+    name="phone"
+    placeholder="Your Phone Number" 
+    required
+    style="padding:10px; border-radius:6px; border:none;"
+  >
+
+  <textarea 
+    name="body"
+    placeholder="Your Message" 
+    rows="3" 
+    required
+    style="padding:10px; border-radius:6px; border:none;"
+  ></textarea>
+
+  <button 
+    type="submit"
+    style="padding:10px 15px; background:#ff0033; color:#fff; border:none; border-radius:6px; cursor:pointer;"
+  >
+    SEND EMAIL
+  </button>
+
+</form>
+
+    <p id="newsletterStatus" style="font-size:0.85rem;"></p>
+  </form>
+</div>
+  </div>
+</footer>
+
+
+<!-- ================= OPTIONAL: ICONS FONT AWESOME ================= -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="section alt container">
+  <h2>Contact Us</h2>
+  <p>Reach out to us anytime via email or connect through our social media channels.</p>
+
+  <!-- Contact Icon Buttons -->
+  <div class="social-icons">
+    <!-- Email -->
+    <a href="mailto:info@yourchurch.org" class="social-btn email" title="Email">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email" />
+    </a>
+
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/PurposefulLivingMinistriesInternational" target="_blank" class="social-btn facebook" title="Facebook">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" />
+    </a>
+
+    <!-- YouTube -->
+    <a href="https://youtube.com/@purposefullivingchurch-1?si=zTX5j_YH9d1xstvb" target="_blank" class="social-btn youtube" title="YouTube">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube" />
+    </a>
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/yournumber" target="_blank" class="social-btn whatsapp" title="WhatsApp">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+    </a>
+
+    <!-- Twitter -->
+    <a href="https://x.com/bulamu?t=9TV8lk9_A3XW03e6gis1eA&s=09" target="_blank" class="social-btn twitter" title="Twitter">
+      <img src="https://upload.wikimedia.org/wikipedia/en/9/9f/Twitter_bird_logo_2012.svg" alt="Twitter" />
+    </a>
+  </div>
+</section>
+
+<style>
+#contact {
+  background: #f5f5f5;
+  padding: 50px 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+#contact h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #2c2c2c;
+}
+
+#contact p {
+  font-size: 16px;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+/* Social Icon Buttons */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.social-btn {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.social-btn img {
+  width: 30px;
+  height: 30px;
+}
+
+.social-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Optional: add background colors for branding (transparent logos will pop) */
+.social-btn.facebook:hover { background: #3b5998; }
+.social-btn.youtube:hover { background: #ff0000; }
+.social-btn.whatsapp:hover { background: #25d366; }
+.social-btn.twitter:hover { background: #1da1f2; }
+.social-btn.email:hover { background: #2c2c2c; }
+</style>
+<!-- ================= FOOTER ================= -->
+<footer id="contact" class="main-footer">
+    <div class="footer-content">
+
+        <!-- school Info -->
+        <div class="footer-section">
+            <h4>Global high school </h4>
+            
+        </div>
+
+        <!-- Address Section -->
+        <div class="footer-section">
+            <h4>Address</h4>
+            <ul>
+                <li><i class="fas fa-map-marker-alt"></i> Entebbe Road, Kampala Uganda</li>
+            </ul>
+
+            <!-- Google Map -->
+            <div class="map-container">
+    <iframe 
+        width="100%" 
+        height="180" 
+        frameborder="0"
+        style="border:0; border-radius:10px;"
+        allowfullscreen 
+        src="https://www.google.com/maps/embed?pb=https://maps.app.goo.gl/kNhgd4dEfZjvHsQQ6">
+    </iframe>
+
+    <div style="text-align:center; margin-top:10px;">
+        <a 
+            href="https://maps.app.goo.gl/qjw1Tn7ZRuhBAtHx6" 
+            target="_blank" 
+            style="
+                padding: 10px 20px;
+                background: #e67e22;
+                color: #fff;
+                border-radius: 6px;
+                font-weight: bold;
+                text-decoration: none;
+            ">
+            View on Google Maps
+        </a>
+    </div>
+</div>
+
+
+            </div>
+        </div>
+
+        
+          
+
+    </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const navToggle = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('.nav');
+        const navLinks = document.querySelectorAll('.nav__link');
+
+        // Toggle mobile navigation visibility
+        navToggle.addEventListener('click', () => {
+            nav.classList.toggle('nav--visible');
+        });
+
+        // Hide navigation when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (nav.classList.contains('nav--visible')) {
+                    nav.classList.remove('nav--visible');
+                }
+            });
+        });
+    });
+</script>
+
+
+<script>
+// Year in footer
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Mobile menu toggle
+const toggle = document.getElementById("mobileToggle");
+const nav = document.getElementById("mainNav");
+toggle.onclick = () => nav.classList.toggle("show");
+</script>
+
+  <!-- ================= SCROLLING MESSAGE ================= -->
+<div id="scrolling-message-container">
+  <div id="scrolling-message">GLOBAL HIGH SCHOOL ENTEBBE </div>
+</div>
+
+<style>
+/* ================= CONTAINER ================= */
+#scrolling-message-container {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15); /* glass effect */
+  backdrop-filter: blur(10px); /* blur behind glass */
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 30px; /* circular edges */
+  color: #000000; /* text color changed to black */
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 0;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 20px; /* spacing below message */
+  opacity: 0;
+  animation: fadeIn 1s forwards; /* fade-in effect */
+}
+
+/* ================= SCROLLING MESSAGE ================= */
+#scrolling-message {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-left 20s linear infinite;
+  color: #000000; /* ensure inner text is black */
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Fade-out animation */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Responsive text */
+@media (max-width: 768px) {
+  #scrolling-message-container {
+    font-size: 14px;
+    padding: 10px 0;
+    border-radius: 20px;
+  }
+}
+</style>
+<script>
+  const newsletterForm = document.getElementById('newsletterForm');
+  const statusText = document.getElementById('newsletterStatus');
+
+  newsletterForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById('userName').value.trim();
+    const email = document.getElementById('userEmail').value.trim();
+    const phone = document.getElementById('userPhone').value.trim();
+    const message = document.getElementById('userMessage').value.trim();
+
+    if (!name || !email || !phone || !message) {
+      statusText.style.color = 'red';
+      statusText.textContent = 'Please fill in all fields.';
+      return;
+    }
+
+    const newMessage = {
+      name,
+      email,
+      phone,
+      message,
+      replied: false,
+      createdAt: Date.now()
+    };
+
+    firebase.database().ref('messages').push(newMessage)
+      .then(() => {
+        statusText.style.color = 'green';
+        statusText.textContent = 'Message sent successfully!';
+        newsletterForm.reset();
+      })
+      .catch(error => {
+        statusText.style.color = 'red';
+        statusText.textContent = 'Error sending message. Try again.';
+        console.error(error);
+      });
+  });
+</script>
+<style>
+/* ================= RESPONSIVE ENHANCEMENTS ================= */
+
+/* Ensure images and videos scale properly */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Hero Section Adjustments */
+.hero-inner {
+  padding: 20px;
+  text-align: center;
+}
+.hero h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem); /* scales nicely */
+}
+.hero p {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+}
+
+/* Header Nav */
+@media(max-width:100px){
+  .main-nav {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background: #fff;
+    flex-direction: column;
+    display: none;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  }
+  .main-nav.show { display: flex; }
+}
+
+/* Grid adjustments */
+.blocks-list, .values-grid, #events-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+  gap: 15px !important;
+}
+
+/* Footer adjustments */
+footer div {
+  flex: 1 1 220px;
+  margin-bottom: 20px;
+}
+footer form input, footer form textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+
+/* Event Scroller */
+.events-scroller {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+.event-frame img {
+  width: 100%;
+  height: auto;
+}
+
+/* Ensure all clickable buttons are tappable on mobile */
+button, .btn, .view-subjects-btn, .nav-history-btn {
+  min-height: 40px;
+  padding: 10px 15px;
+  touch-action: manipulation;
+}
+
+/* General spacing for mobile */
+@media(max-width:600px){
+  .container {
+    padding: 15px;
+  }
+  .hero-logo-circle {
+    width: 100px;
+    height: 100px;
+  }
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+}
+</style>
+
+<script>
+/* ================= MOBILE NAV TOGGLE ================= */
+const mobileToggle = document.getElementById('mobileToggle');
+const mainNav = document.getElementById('mainNav');
+
+mobileToggle.addEventListener('click', () => {
+  mainNav.classList.toggle('show');
+});
+</script>
+        <script>
+(function () {
+
+  let stopScroll = false;
+  let rafId = null;
+
+  function stopAutoScroll() {
+    stopScroll = true;
+    if (rafId) cancelAnimationFrame(rafId);
+  }
+
+  // Stop animation on any user interaction
+  ["wheel", "touchstart", "mousedown", "keydown"].forEach(event => {
+    window.addEventListener(event, stopAutoScroll, { once: true });
+  });
+
+  window.addEventListener("load", () => {
+    const totalHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+
+    if (totalHeight <= 0) return;
+
+    let startTime = null;
+    const durationDown = 3500;
+    const durationUp = 2500;
+    const pauseAtBottom = 1000;
+
+    function easeInOut(t) {
+      return t < 0.5
+        ? 2 * t * t
+        : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    }
+
+    function scrollDown(timestamp) {
+      if (stopScroll) return;
+
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / durationDown, 1);
+      const eased = easeInOut(progress);
+
+      window.scrollTo(0, eased * totalHeight);
+
+      if (progress < 1) {
+        rafId = requestAnimationFrame(scrollDown);
+      } else {
+        setTimeout(() => {
+          if (stopScroll) return;
+          startTime = null;
+          rafId = requestAnimationFrame(scrollUp);
+        }, pauseAtBottom);
+      }
+    }
+
+    function scrollUp(timestamp) {
+      if (stopScroll) return;
+
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / durationUp, 1);
+      const eased = easeInOut(progress);
+
+      window.scrollTo(0, totalHeight * (1 - eased));
+
+      if (progress < 1) {
+        rafId = requestAnimationFrame(scrollUp);
+      }
+    }
+
+    rafId = requestAnimationFrame(scrollDown);
+  });
+
+})();
+</script>
+<!-- ================= FOOTER ================= -->
+<footer style="background:#ffffff; color:#111827; padding:20px 15px; text-align:center; font-size:14px; display:flex; flex-direction:column; align-items:center; gap:8px;">
+  <p style="margin:0;">Supported by</p>
+  
+  <a href="https://markmellon3.github.io/Aboutmmindustry-/ " target="_blank" 
+     style="display:flex; align-items:center; gap:8px; text-decoration:none; transition:opacity 0.3s;">
+    
+    <!-- Circular Logo -->
+    <img src="https://i.ibb.co/Xxd4xGcM/1000755820.jpg" 
+         alt="Logo" 
+         style="width:32px; height:32px; border-radius:50%; object-fit:cover; border:1px solid #ddd;">
+    
+    <!-- Text -->
+    <span style="
+      padding:4px 10px;
+      background:#3b82f6;
+      color:#fff;
+      font-weight:600;
+      font-size:13px;
+      border-radius:6px;
+      transition:background 0.3s;
+    " 
+    onmouseover="this.style.background='#2563eb';" 
+    onmouseout="this.style.background='#3b82f6';">
+      MARKMELLON
+    </span>
+  </a>
+</footer>
+</body>
+</html>

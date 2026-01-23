@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Gallery </title>
+ <!-- Favicon -->
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" href="https://i.ibb.co/mrWQCrrb/blob.jpg" sizes="512x512">
+<link rel="apple-touch-icon" href="https://ik.imagekit.io/s95tumxuk/1763291103188.jpg">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ================= GLOBAL ================= */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter', sans-serif; background:#f8f9fa; color:#222; }
+
+/* ================= NAVIGATION ================= */
+nav {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#333;
+  padding:16px 12px;
+  gap:30px;
+  flex-wrap:wrap;
+}
+nav a {
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:8px;
+  transition:0.3s;
+}
+nav a:hover { background:#555; transform:translateY(-2px); }
+
+/* ================= HEADER ================= */
+header {
+  text-align:center;
+  padding:40px 15px;
+  background:#fff;
+  margin-top:20px;
+  border-radius:14px;
+  max-width:1200px;
+  margin:20px auto 10px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.06);
+}
+header h1 {
+  font-size:2rem;
+  font-weight:800;
+  color:#111;
+}
+
+/* ================= LOADER ================= */
+#loader {
+  border:6px solid #e5e5e5;
+  border-top:6px solid #888;
+  border-radius:50%;
+  width:60px;
+  height:60px;
+  animation:spin 1s linear infinite;
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%, -50%);
+  z-index:2000;
+  display:none;
+}
+@keyframes spin { to { transform:translate(-50%, -50%) rotate(360deg); } }
+
+/* ================= GALLERY ================= */
+.gallery {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  padding:25px 20px;
+  max-width:1400px;
+  margin:0 auto;
+}
+.gallery img {
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:14px;
+  background:#ddd;
+  cursor:pointer;
+  opacity:0;
+  transform:translateY(20px);
+  transition:0.5s;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+.gallery img.show { opacity:1; transform:translateY(0); }
+.gallery img:hover { transform:scale(1.05); box-shadow:0 12px 26px rgba(0,0,0,0.22); }
+
+/* ================= LIGHTBOX ================= */
+#lightbox {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  visibility:hidden;
+  opacity:0;
+  transition:0.3s;
+  z-index:3000;
+}
+#lightbox.show { visibility:visible; opacity:1; }
+#lightboxImg {
+  max-width:90%;
+  max-height:90%;
+  border-radius:14px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.5);
+  animation:fadeIn 0.4s;
+}
+@keyframes fadeIn { from { opacity:0; transform:scale(0.9); } to { opacity:1; transform:scale(1); } }
+
+/* ================= FOOTER ================= */
+footer {
+  background:#333;
+  color:white;
+  text-align:center;
+  padding:25px;
+  font-size:0.95rem;
+  margin-top:40px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:768px) { 
+  .gallery { grid-template-columns:repeat(2,1fr); } 
+  header h1 { font-size:1.6rem; } 
+  nav a { font-size:14px; padding:6px 10px; } 
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <a href="index.html">HOME</a>
+  
+</nav>
+
+<header>
+  <h1>OUR  GALLERY </h1>
+</header>
+
+<!-- Loader -->
+<div id="loader"></div>
+
+<!-- Gallery -->
+<div class="gallery" id="gallery"></div>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="Image Preview">
+</div>
+
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-database-compat.js"></script>
+
+<script>
+/* ---------- FIREBASE CONFIG ---------- */
+const firebaseConfig = {
+  apiKey: "AIzaSyBoJdGfyASAGwxVlwqaF7a1aZqp_i6MXFg",
+  authDomain: "global-high-a001d.firebaseapp.com",
+  databaseURL: "https://global-high-a001d-default-rtdb.firebaseio.com",
+  projectId: "global-high-a001d",
+  storageBucket: "global-high-a001d.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+/* ---------- GALLERY VARIABLES ---------- */
+let currentPage = 1;
+const imagesPerPage = 20;
+let allImages = [];
+let loading = false;
+
+/* ---------- LOADER FUNCTIONS ---------- */
+function showLoader(){ document.getElementById("loader").style.display="block"; }
+function hideLoader(){ document.getElementById("loader").style.display="none"; }
+
+/* ---------- LIGHTBOX ---------- */
+function openLightbox(url){
+  document.getElementById("lightboxImg").src = url;
+  document.getElementById("lightbox").classList.add("show");
+}
+function closeLightbox(){
+  document.getElementById("lightbox").classList.remove("show");
+}
+
+/* ---------- LOAD IMAGES FROM FIREBASE ---------- */
+async function loadFirebaseImages(){
+  showLoader();
+  const snapshot = await db.ref("gallery").once("value");
+  const images = [];
+  snapshot.forEach(child => {
+    const data = child.val();
+    if(data.url) images.push({ url: data.url });
+  });
+  // Sort newest images first (optional)
+  images.reverse();
+  allImages = images;
+  hideLoader();
+  currentPage = 1;
+  document.getElementById("gallery").innerHTML = "";
+  loadMoreImages();
+}
+
+/* ---------- LOAD MORE IMAGES ---------- */
+function loadMoreImages(){
+  if(loading) return;
+  loading = true;
+  const gallery = document.getElementById("gallery");
+  const start = (currentPage-1)*imagesPerPage;
+  const end = start + imagesPerPage;
+  const pageImages = allImages.slice(start,end);
+
+  pageImages.forEach((file,i)=>{
+    const img = document.createElement("img");
+    img.src = file.url;
+    img.onclick = ()=>openLightbox(file.url);
+    gallery.appendChild(img);
+    setTimeout(()=>img.classList.add('show'), i*100);
+  });
+
+  currentPage++;
+  loading = false;
+}
+
+/* ---------- INFINITE SCROLL ---------- */
+window.addEventListener('scroll', ()=>{
+  if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 200){
+    const totalPages = Math.ceil(allImages.length / imagesPerPage);
+    if(currentPage <= totalPages){
+      loadMoreImages();
+    }
+  }
+});
+
+/* ---------- AUTO REFRESH EVERY 60 SECONDS ---------- */
+setInterval(loadFirebaseImages, 60000);
+
+/* ---------- INITIAL LOAD ---------- */
+loadFirebaseImages();
+</script>
+
+</body>
+</html>

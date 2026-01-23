@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GHS Global Admin Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <!-- Favicon -->
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" href="https://i.ibb.co/mrWQCrrb/blob.jpg" sizes="512x512">
+<link rel="apple-touch-icon" href="https://ik.imagekit.io/s95tumxuk/1763291103188.jpg">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#4CAF50;
+  --primary-dark:#2E7D32;
+  --accent:#ff6600;
+  --bg:#f4f6f9;
+  --card:#ffffff;
+  --radius:14px;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:#333;
+}
+
+/* ===== HEADER ===== */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 24px;
+  background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+  color:#fff;
+}
+
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.logo{
+  width:52px;
+  height:52px;
+  background:rgba(255,255,255,0.2);
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.status-dot{
+  width:10px;
+  height:10px;
+  background:#00ff00;
+  border-radius:50%;
+}
+
+/* ===== LAYOUT ===== */
+.container{
+  max-width:1200px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+h2{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+/* ===== CARDS ===== */
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:25px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  margin-bottom:40px;
+}
+
+/* ===== FORMS ===== */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+input, textarea{
+  padding:14px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:15px;
+}
+
+button{
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.btn-primary{background:var(--primary);color:#fff}
+.btn-danger{background:#dc3545;color:#fff}
+.btn-edit{background:#28a745;color:#fff}
+
+/* ===== GRID ===== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.image-card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+/* ===== LOGIN OVERLAY ===== */
+#loginOverlay{
+  position:fixed;
+  inset:0;
+  background:#ffffff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.login-box{
+  background:#ffbe95;
+  padding:90px;
+  width:100%;
+  max-width:380px;
+  border-radius:16px;
+  text-align:center;
+}
+
+.login-box h3{margin-bottom:20px}
+.login-box p{color:red;font-size:14px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  header{flex-direction:column;gap:10px}
+}
+
+.image-loader{
+  display:none;
+  width:36px;
+  height:36px;
+  border:4px solid #e0e0e0;
+  border-top:4px solid #4CAF50;
+  border-radius:50%;
+  animation: spin 0.8s linear infinite;
+  margin:15px auto;
+}
+
+@keyframes spin{
+  to{ transform:rotate(360deg); }
+}
+.message-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+  border-left: 5px solid #ff0033;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect */
+.message-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.12);
+}
+
+/* Replied message */
+.message-card.replied {
+  border-left-color: #28a745;
+  background: #f9fff9;
+}
+
+/* Unread message */
+.message-card.unread {
+  border-left-color: #007bff;
+}
+
+/* Header */
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.message-name {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #111;
+}
+
+.message-date {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* Contact details */
+.message-email,
+.message-phone {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 4px;
+  word-break: break-word;
+}
+
+.message-email::before {
+  content: "📧 ";
+}
+
+.message-phone::before {
+  content: "📞 ";
+}
+
+/* Message body */
+.message-text {
+  margin-top: 8px;
+  padding: 12px 14px;
+  background: #f6f6f6;
+  border-radius: 8px;
+  border-left: 4px solid #ff0033;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Actions */
+.message-actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.message-actions a,
+.message-actions button {
+  padding: 7px 14px;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.message-actions button:hover,
+.message-actions a:hover {
+  transform: scale(1.05);
+}
+
+/* Buttons */
+.reply-btn {
+  background: #007bff;
+}
+
+.reply-btn:hover {
+  background: #005ecb;
+}
+
+.delete-btn {
+  background: #ff0033;
+}
+
+.delete-btn:hover {
+  background: #cc0028;
+}
+
+/* Mobile optimization */
+@media (max-width: 600px) {
+  .message-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .message-text {
+    font-size: 0.88rem;
+  }
+
+  .message-actions {
+    gap: 8px;
+  }
+} 
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginOverlay">
+  <div class="login-box">
+    <h3>🔐 Admin Login</h3>
+    <input type="email" id="adminEmail" placeholder="Email">
+    <input type="password" id="adminPassword" placeholder="Password">
+    <button class="btn-primary" onclick="login()">Login</button>
+    <p id="loginError"></p>
+  </div>
+</div>
+
+<header>
+  <div class="header-left">
+    <div class="logo">
+  <img 
+    src="https://i.ibb.co/mrWQCrrb/blob.jpg"
+    alt="GHS Logo"
+  >
+</div>
+      <strong>GLOBAL ADMIN PANEL</strong><br>
+      <small>Secure Control Center</small>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="status-dot"></span>
+    <span>Online</span>
+  </div>
+</header>
+
+<div class="container">
+  
+  <!-- ===== LIVE WEBSITE PREVIEW ===== -->
+<div class="card">
+  <h2>🌍 Live Website Preview</h2>
+  <p style="text-align:center;color:#666;margin-bottom:15px;">
+    See your website updates in real time
+  </p>
+
+  <button class="btn-primary" style="margin-bottom:15px;" onclick="refreshPreview()">
+    🔄 Refresh Preview
+  </button>
+
+  <div style="border-radius:12px;overflow:hidden;border:1px solid #ddd;">
+    <iframe 
+      id="livePreview"
+      src="https://purposefullivingchurchplc.org/"
+      style="width:100%;height:600px;border:none;">
+    </iframe>
+  </div>
+</div>
+  
+<!-- IMAGE UPLOAD -->
+<div class="card">
+  <h2>📸 Image Upload (Public Link)</h2>
+
+  <input 
+    type="file" 
+    id="imageFile" 
+    accept="image/*"
+    onchange="previewBeforeUpload()"
+  >
+
+  <img 
+    id="imagePreview"
+    style="
+      display:none;
+      width:100%;
+      max-height:240px;
+      object-fit:cover;
+      border-radius:12px;
+      margin:15px 0;
+    "
+  >
+<div id="imageLoader" class="image-loader"></div>
+  <button class="btn-primary" onclick="uploadImage()">Upload Image</button>
+
+  <input id="imageLink" readonly placeholder="Image URL">
+</div>
+  <!-- GALLERY -->
+  <div class="card">
+    <h2>🖼 Gallery Manager</h2>
+    <form id="imageForm">
+      <input type="hidden" id="imageId">
+      <input type="url" id="imageUrl" placeholder="Image URL" required>
+      <button class="btn-primary">Save Image</button>
+    </form>
+    <div class="grid" id="gallery"></div>
+  </div>
+
+  <!-- NEWS -->
+  <div class="card">
+    <h2>📢 News Manager</h2>
+    <form id="newsForm">
+      <input type="hidden" id="newsId">
+      <input type="text" id="newsTitle" placeholder="Title" required>
+      <input type="date" id="newsDate" required>
+      <textarea id="newsContent" rows="4" placeholder="News Content" required></textarea>
+      <button class="btn-primary">Save News</button>
+    </form>
+    <div id="newsList" class="grid"></div>
+  </div>
+
+</div>
+<!-- EVENTS MANAGER -->
+<div class="card">
+  <h2>📅 Events Manager</h2>
+  <form id="eventForm">
+    <input type="hidden" id="eventId">
+    <input type="text" id="eventTitle" placeholder="Event Title" required>
+    <input type="date" id="eventDate" required>
+    <input type="text" id="eventCategory" placeholder="Category (e.g., Academic, Arts, Sports)" required>
+    <input type="text" id="eventImage" placeholder="Image URL" required>
+    <textarea id="eventContent" rows="4" placeholder="Event Description" required></textarea>
+    <input type="text" id="eventLink" placeholder="Optional Link">
+    <button class="btn-primary">Save Event</button>
+  </form>
+  <div id="eventList" class="grid"></div>
+</div>
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+firebase.initializeApp({
+  apiKey:"AIzaSyBoJdGfyASAGwxVlwqaF7a1aZqp_i6MXFg",
+  authDomain:"global-high-a001d.firebaseapp.com",
+  databaseURL:"https://global-high-a001d-default-rtdb.firebaseio.com",
+  projectId:"global-high-a001d",
+  appId:"1:966103646546:web:cf2198f5b8384ac85d3a8b"
+});
+
+const db=firebase.database();
+const auth=firebase.auth();
+</script>
+
+<script>
+function login(){
+  auth.signInWithEmailAndPassword(
+    adminEmail.value,
+    adminPassword.value
+  ).catch(e=>loginError.textContent=e.message);
+}
+
+auth.onAuthStateChanged(user=>{
+  loginOverlay.style.display=user?"none":"flex";
+});
+</script>
+
+<script>
+const galleryRef=db.ref("gallery");
+galleryRef.on("value",snap=>{
+  gallery.innerHTML="";
+  snap.forEach(c=>{
+    gallery.innerHTML+=`
+      <div class="image-card card">
+        <img src="${c.val().url}">
+        <button class="btn-danger" onclick="galleryRef.child('${c.key}').remove()">Delete</button>
+      </div>`;
+  });
+});
+
+imageForm.onsubmit=e=>{
+  e.preventDefault();
+  galleryRef.push({url:imageUrl.value});
+  imageForm.reset();
+};
+</script>
+
+<script>
+const newsRef=db.ref("news");
+newsRef.on("value",snap=>{
+  newsList.innerHTML="";
+  snap.forEach(c=>{
+    newsList.innerHTML+=`
+      <div class="card">
+        <small>${c.val().date}</small>
+        <h3>${c.val().title}</h3>
+        <p>${c.val().content}</p>
+        <button class="btn-danger" onclick="newsRef.child('${c.key}').remove()">Delete</button>
+      </div>`;
+  });
+});
+
+newsForm.onsubmit=e=>{
+  e.preventDefault();
+  newsRef.push({
+    title:newsTitle.value,
+    date:newsDate.value,
+    content:newsContent.value
+  });
+  newsForm.reset();
+};
+</script>
+
+<script>
+const IMGBB_KEY="47f7dff148164ff31a5947e6ee635363";
+async function uploadImage(){
+  const file=imageFile.files[0];
+  if(!file) return alert("Select image");
+  const fd=new FormData();
+  fd.append("image",file);
+  const r=await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_KEY}`,{method:"POST",body:fd});
+  const d=await r.json();
+  imageLink.value=d.data.url;
+}
+document.getElementById("imagePreview").style.display = "none";
+</script>
+<script>
+function refreshPreview(){
+  const iframe = document.getElementById("livePreview");
+  iframe.src = iframe.src;
+}
+</script>
+<script>
+function previewBeforeUpload(){
+  const file = document.getElementById("imageFile").files[0];
+  const preview = document.getElementById("imagePreview");
+  const loader = document.getElementById("imageLoader");
+
+  if(!file){
+    preview.style.display = "none";
+    loader.style.display = "none";
+    return;
+  }
+
+  loader.style.display = "block";
+  preview.style.display = "none";
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    preview.src = e.target.result;
+    preview.style.display = "block";
+    loader.style.display = "none";
+  };
+  reader.readAsDataURL(file);
+}
+document.getElementById("imageLoader").style.display = "block";
+document.getElementById("imageLoader").style.display = "none";
+</script>
+<script>
+  // ================= ADMIN PANEL ELEMENTS =================
+  const eventForm = document.getElementById('eventForm');
+  const eventIdInput = document.getElementById('eventId');
+  const eventTitle = document.getElementById('eventTitle');
+  const eventDate = document.getElementById('eventDate');
+  const eventCategory = document.getElementById('eventCategory');
+  const eventImage = document.getElementById('eventImage');
+  const eventContent = document.getElementById('eventContent');
+  const eventLink = document.getElementById('eventLink');
+  const eventList = document.getElementById('eventList');
+
+  // ================= FIREBASE REFERENCE =================
+  const eventsRef = firebase.database().ref('events');
+
+  // ================= ADD OR UPDATE EVENT =================
+  eventForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const id = eventIdInput.value || eventsRef.push().key;
+
+    // Clean and sanitize data
+    const eventData = {
+      title: eventTitle.value.trim() || 'Untitled Event',
+      date: eventDate.value || new Date().toISOString().split('T')[0],
+      category: eventCategory.value.trim() || 'GENERAL',
+      image: eventImage.value.trim() || 'https://via.placeholder.com/400x250',
+      content: eventContent.value.trim() || '',
+      link: eventLink.value.trim() || '#',
+      createdAt: Date.now() // timestamp for sorting or analytics
+    };
+
+    // Save to Firebase
+    eventsRef.child(id).set(eventData)
+      .then(() => {
+        alert('Event saved successfully!');
+        eventForm.reset();
+        eventIdInput.value = '';
+      })
+      .catch(err => console.error('Firebase Error:', err));
+  });
+
+  // ================= DISPLAY EVENT LIST IN ADMIN =================
+  function renderEventList() {
+    eventList.innerHTML = '';
+    eventsRef.once('value').then(snapshot => {
+      const data = snapshot.val();
+      if (!data) {
+        eventList.innerHTML = '<p>No events available</p>';
+        return;
+      }
+
+      // Sort by date newest first
+      const items = Object.entries(data).sort((a,b) => new Date(b[1].date) - new Date(a[1].date));
+
+      items.forEach(([id, item]) => {
+        const card = document.createElement('div');
+        card.className = 'news-card';
+        card.innerHTML = `
+          <h3>${item.title}</h3>
+          <p><strong>Date:</strong> ${item.date}</p>
+          <p><strong>Category:</strong> ${item.category}</p>
+          <p>${item.content}</p>
+          <div class="news-actions">
+            <button class="edit-btn" data-id="${id}">Edit</button>
+            <button class="delete-btn" data-id="${id}">Delete</button>
+          </div>
+        `;
+        eventList.appendChild(card);
+      });
+
+      // ================= EDIT EVENT =================
+      document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.id;
+          const item = data[id];
+          eventIdInput.value = id;
+          eventTitle.value = item.title;
+          eventDate.value = item.date;
+          eventCategory.value = item.category;
+          eventImage.value = item.image;
+          eventContent.value = item.content;
+          eventLink.value = item.link || '';
+        });
+      });
+
+      // ================= DELETE EVENT =================
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.id;
+          if (confirm('Are you sure you want to delete this event?')) {
+            eventsRef.child(id).remove();
+          }
+        });
+      });
+    });
+  }
+
+  // ================= LISTEN FOR REAL-TIME CHANGES =================
+  eventsRef.on('value', renderEventList);
+
+  // ================= WEBSITE DISPLAY =================
+  const newsContainer = document.getElementById('newsContainer');
+  if (newsContainer) {
+    eventsRef.on('value', snapshot => {
+      newsContainer.innerHTML = '';
+      const data = snapshot.val();
+
+      if (!data) {
+        newsContainer.innerHTML = '<p>No events available</p>';
+        return;
+      }
+
+      // Convert Firebase object to array and sort by date (newest first)
+      const items = Object.values(data)
+        .map(item => ({
+          title: item.title || 'Untitled Event',
+          date: item.date || new Date().toISOString().split('T')[0],
+          category: item.category || 'GENERAL',
+          image: item.image || 'https://via.placeholder.com/400x250', // fallback image
+          link: item.link || '#',
+          content: item.content || ''
+        }))
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.style.cssText = `
+          position:relative; border-radius:12px; overflow:hidden;
+          box-shadow:0 8px 25px rgba(0,0,0,0.1); background:#fff;
+        `;
+
+        card.innerHTML = `
+          <img src="${item.image}" alt="${item.title}" style="width:100%; height:200px; object-fit:cover;">
+          <div style="position:absolute; top:15px; left:15px; background:#fff; padding:5px 10px; font-weight:700; font-size:0.9rem; border-radius:6px;">
+            ${formatDate(item.date)}
+          </div>
+          <div style="position:absolute; bottom:15px; left:15px; background:#ff0033; color:#fff; padding:5px 10px; font-size:0.8rem; font-weight:700; border-radius:6px;">
+            ${item.category.toUpperCase()}
+          </div>
+          <div style="padding:15px;">
+            <h3 style="margin:0 0 10px 0; font-size:1.1rem; font-weight:700;">${item.title}</h3>
+            <p style="color:#555; font-size:0.9rem; margin-bottom:10px;">${item.content}</p>
+            <a href="${item.link}" style="color:#555; font-size:0.9rem; text-decoration:none; font-weight:500;">READ MORE →</a>
+          </div>
+        `;
+
+        newsContainer.appendChild(card);
+      });
+    });
+  }
+
+  // ================= HELPER: FORMAT DATE =================
+  function formatDate(dateStr) {
+    const months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+    const d = new Date(dateStr);
+    if (isNaN(d)) return dateStr; // fallback for invalid date
+    const day = d.getDate().toString().padStart(2,'0');
+    const month = months[d.getMonth()];
+    return `${day} ${month}`;
+  }
+</script>
+
+<!-- ================= CAMPUS LIFE ADMIN BLOCK ================= -->
+<style>
+  /* ================= CAMPUS LIFE ADMIN CSS ================= */
+  .admin-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    border: 1px solid #eee;
+  }
+
+  .admin-card h2 {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    color: #1a1a37;
+    font-weight: 600;
+  }
+
+  .admin-form {
+    display: grid;
+    gap: 15px;
+  }
+
+  .admin-form input,
+  .admin-form select,
+  .admin-form button {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 15px;
+    width: 100%;
+  }
+
+  .admin-form button {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .admin-form button:hover {
+    background: var(--primary-dark);
+  }
+
+  #campusImageList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .admin-item {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    background: #fdfdfd;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+  }
+
+  .admin-item img {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .admin-info {
+    flex: 1;
+    font-size: 13px;
+    word-break: break-all;
+  }
+
+  .delete-btn {
+    background: #fff1f2;
+    color: #dc2626;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .delete-btn:hover {
+    background: #fcdcdc;
+  }
+</style>
+
+<div class="admin-card">
+  <h2>Add Campus Life Image</h2>
+  <form id="campusImageForm" class="admin-form">
+    <input type="url" id="campusImageUrl" placeholder="Paste Image URL here..." required>
+    <select id="campusImageType">
+      <option value="normal">Normal</option>
+      <option value="trophy">Trophy (Big Left)</option>
+      <option value="lab">Lab (Wide Bottom)</option>
+    </select>
+    <button type="submit" id="campusSaveBtn">Save Image</button>
+  </form>
+</div>
+
+<div class="admin-card">
+  <h2>Manage Campus Life Images</h2>
+  <div id="campusImageList">Loading database...</div>
+</div>
+
+<script>
+  // ===== CAMPUS LIFE IMAGE LOGIC =====
+  const campusImagesRef = firebase.database().ref("campusLifeImages");
+
+  const campusImageForm = document.getElementById("campusImageForm");
+  const campusImageList = document.getElementById("campusImageList");
+  const campusImageUrl = document.getElementById("campusImageUrl");
+  const campusImageType = document.getElementById("campusImageType");
+  const campusSaveBtn = document.getElementById("campusSaveBtn");
+
+  // Add image
+  campusImageForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const url = campusImageUrl.value.trim();
+    const type = campusImageType.value;
+    if (!url) { alert("Please enter a valid URL."); return; }
+
+    campusSaveBtn.disabled = true;
+    campusSaveBtn.innerText = "Saving...";
+
+    campusImagesRef.push({ url, type, createdAt: firebase.database.ServerValue.TIMESTAMP })
+      .then(() => {
+        alert("Saved!");
+        campusImageForm.reset();
+      })
+      .catch(err => alert("Error: " + err.message))
+      .finally(() => {
+        campusSaveBtn.disabled = false;
+        campusSaveBtn.innerText = "Save Image";
+      });
+  });
+
+  // Real-time load
+  campusImagesRef.on("value", snapshot => {
+    campusImageList.innerHTML = "";
+    const data = snapshot.val();
+    if (!data) {
+      campusImageList.innerHTML = "<p>No images found.</p>";
+      return;
+    }
+
+    // Sort by newest first
+    Object.entries(data)
+      .sort((a, b) => b[1].createdAt - a[1].createdAt)
+      .forEach(([id, item]) => {
+        const div = document.createElement("div");
+        div.className = "admin-item";
+        div.innerHTML = `
+          <img src="${item.url}" onerror="this.src='https://via.placeholder.com/100?text=Error'">
+          <div class="admin-info"><strong>${item.type.toUpperCase()}</strong><br>${item.url}</div>
+          <button class="delete-btn" onclick="campusImagesRef.child('${id}').remove()">Delete</button>
+        `;
+        campusImageList.appendChild(div);
+      });
+  });
+</script>
+<!-- ================= DOCUMENTS ADMIN PANEL ================= -->
+<section class="docs-admin">
+
+  <h2 class="docs-title">📂 Documents Manager</h2>
+
+  <!-- ADD DOCUMENT -->
+  <div class="docs-card">
+    <h3>Add New Document</h3>
+
+    <label>Document Title</label>
+    <input type="text" id="docTitle" placeholder="e.g. Admission Form">
+
+    <label>Image URL (Firebase Storage / External)</label>
+    <input type="text" id="docImage" placeholder="https://...">
+
+    <button id="addDocBtn">➕ Add Document</button>
+  </div>
+
+  <!-- DOCUMENT LIST -->
+  <div class="docs-card">
+    <h3>Existing Documents</h3>
+    <div class="docs-grid" id="documentsGrid">
+      Loading documents...
+    </div>
+  </div>
+
+</section>
+
+<style>
+/* ================= DOCUMENTS ADMIN CSS ================= */
+.docs-admin {
+  max-width: 1100px;
+  margin: 40px auto;
+  font-family: 'Inter', sans-serif;
+}
+
+.docs-title {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.docs-card {
+  background: #15253e;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  margin-bottom: 30px;
+  color: #e5e7eb;
+}
+
+.docs-card h3 {
+  margin-bottom: 15px;
+}
+
+.docs-card label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.docs-card input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 15px;
+  background: #1f2933;
+  color: #000000;
+}
+
+.docs-card button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background: #22c55e;
+  color: #052e16;
+}
+
+.docs-card button:hover {
+  background: #16a34a;
+}
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.docs-item {
+  background: #020617;
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.docs-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.docs-item-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.docs-delete {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #ef4444;
+  color: #000000;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.docs-delete:hover {
+  background: #dc2626;
+}
+</style>
+
+<script>
+/* ================= DOCUMENTS ADMIN LOGIC ================= */
+
+// uses existing Firebase initialization
+const documentsRef = firebase.database().ref("documents");
+
+const grid = document.getElementById("documentsGrid");
+const addBtn = document.getElementById("addDocBtn");
+const docTitle = document.getElementById("docTitle");
+const docImage = document.getElementById("docImage");
+
+/* ADD DOCUMENT */
+addBtn.addEventListener("click", () => {
+  const title = docTitle.value.trim();
+  const imageUrl = docImage.value.trim();
+
+  if (!imageUrl) {
+    alert("Image URL is required");
+    return;
+  }
+
+  documentsRef.push({
+    title,
+    imageUrl,
+    createdAt: Date.now()
+  });
+
+  docTitle.value = "";
+  docImage.value = "";
+});
+
+/* LOAD DOCUMENTS (REALTIME) */
+documentsRef.on("value", snapshot => {
+  grid.innerHTML = "";
+  const data = snapshot.val();
+
+  if (!data) {
+    grid.innerHTML = "<p>No documents available.</p>";
+    return;
+  }
+
+  Object.entries(data)
+    .sort((a, b) => b[1].createdAt - a[1].createdAt)
+    .forEach(([id, doc]) => {
+
+      const div = document.createElement("div");
+      div.className = "docs-item";
+
+      div.innerHTML = `
+        <img src="${doc.imageUrl}"
+             onerror="this.src='https://via.placeholder.com/400x300?text=Error'">
+        <div class="docs-item-title">${doc.title || "Untitled Document"}</div>
+        <button class="docs-delete" onclick="deleteDocument('${id}')">
+          🗑 Delete
+        </button>
+      `;
+
+      grid.appendChild(div);
+    });
+});
+
+/* DELETE DOCUMENT */
+function deleteDocument(id) {
+  if (confirm("Delete this document?")) {
+    documentsRef.child(id).remove();
+  }
+}
+</script>
+<!-- ================= PDF UPLOAD ADMIN CARD ================= -->
+<div class="admin-card">
+  <h2>📄 PDF Upload Panel – Store in DB</h2>
+
+  <label>PDF Title</label>
+  <input type="text" id="pdfTitle" placeholder="e.g. Biology Past Paper">
+
+  <label>Category</label>
+  <select id="pdfCategory">
+    <option value="past papers">Past Papers</option>
+    <option value="subjects">Subjects</option>
+    <option value="work">Work</option>
+  </select>
+
+  <label>Select PDF File</label>
+  <input type="file" id="pdfFile" accept="application/pdf">
+
+  <button id="uploadBtn">⬆ Upload PDF</button>
+</div>
+
+<!-- ================= UPLOADED PDF LIST ================= -->
+<div class="admin-card">
+  <h2>Uploaded PDFs</h2>
+  <div class="pdf-grid" id="pdfGrid">Loading...</div>
+</div>
+
+<style>
+/* ================= PROFESSIONAL PDF ADMIN CSS ================= */
+.admin-card {
+  background: #1e293b; /* Darker professional tone */
+  padding: 30px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  border: 1px solid #334155;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.admin-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.45);
+}
+
+.admin-card h2 {
+  margin-bottom: 24px;
+  font-size: 1.6rem;
+  color: #f1f5f9;
+  font-weight: 700;
+  border-bottom: 2px solid #3b82f6;
+  padding-bottom: 8px;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  font-size: 15px;
+  border: 1px solid #475569;
+  transition: all 0.2s ease;
+}
+
+input, select {
+  background: #b9b9b9;
+  color: #f1f5f9;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.4);
+}
+
+button {
+  background: #3b82f6;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+button:hover {
+  background: #2563eb;
+}
+button:disabled {
+  background: #64748b;
+  cursor: not-allowed;
+}
+
+.pdf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 22px;
+}
+
+.pdf-card {
+  background: #0f172a;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  border: 1px solid #334155;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.pdf-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.5);
+}
+
+.pdf-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #f1f5f9;
+  margin-bottom: 6px;
+}
+
+.pdf-category {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 12px;
+}
+
+.pdf-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.pdf-actions a,
+.pdf-actions button {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.view-btn {
+  background: #22c55e;
+  color: #0f172a;
+  text-decoration: none;
+}
+.view-btn:hover {
+  background: #16a34a;
+  color: #fff;
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: #fff;
+}
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .pdf-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<script>
+/* ===== FIREBASE CONFIG (uses existing initialization) ===== */
+const pdfsRef = firebase.database().ref("pdfs");
+
+/* ELEMENTS */
+const pdfGrid = document.getElementById("pdfGrid");
+const uploadBtn = document.getElementById("uploadBtn");
+const pdfTitle = document.getElementById("pdfTitle");
+const pdfCategory = document.getElementById("pdfCategory");
+const pdfFile = document.getElementById("pdfFile");
+
+/* UPLOAD PDF TO DB */
+uploadBtn.addEventListener("click", () => {
+  const file = pdfFile.files[0];
+  const title = pdfTitle.value.trim();
+  const category = pdfCategory.value;
+
+  if (!file) return alert("Select a PDF file.");
+
+  uploadBtn.disabled = true;
+  uploadBtn.innerText = "Uploading...";
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const base64 = reader.result; // PDF as Base64 string
+    pdfsRef.push({
+      title,
+      category,
+      pdfBase64: base64,
+      createdAt: Date.now()
+    });
+
+    pdfTitle.value = "";
+    pdfFile.value = "";
+    uploadBtn.disabled = false;
+    uploadBtn.innerText = "⬆ Upload PDF";
+  };
+
+  reader.onerror = () => {
+    alert("Failed to read file.");
+    uploadBtn.disabled = false;
+    uploadBtn.innerText = "⬆ Upload PDF";
+  };
+
+  reader.readAsDataURL(file);
+});
+
+/* LOAD PDFs */
+pdfsRef.on("value", snapshot => {
+  pdfGrid.innerHTML = "";
+  const data = snapshot.val();
+  if (!data) { pdfGrid.innerHTML = "<p>No PDFs uploaded yet.</p>"; return; }
+
+  Object.entries(data)
+    .sort((a,b) => b[1].createdAt - a[1].createdAt)
+    .forEach(([id, pdf]) => {
+      const card = document.createElement("div");
+      card.className = "pdf-card";
+
+      card.innerHTML = `
+        <div class="pdf-title">${pdf.title || "Untitled PDF"}</div>
+        <div class="pdf-category">${pdf.category}</div>
+        <div class="pdf-actions">
+          <a class="view-btn" href="${pdf.pdfBase64}" target="_blank" download="${pdf.title || 'document'}.pdf">Download</a>
+          <button class="delete-btn" onclick="deletePDF('${id}')">Delete</button>
+        </div>
+      `;
+      pdfGrid.appendChild(card);
+    });
+});
+
+/* DELETE PDF */
+function deletePDF(id) {
+  if (!confirm("Delete this PDF?")) return;
+  pdfsRef.child(id).remove();
+}
+</script>
+</body>
+</html>

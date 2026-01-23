@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>News & Updates | Global High Church</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-database-compat.js"></script>
+
+<style>
+/* ---------- GLOBAL ---------- */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #f9f9f9;
+  color: #333;
+}
+
+/* ---------- HEADER ---------- */
+header {
+  background: #ff6600;
+  color: #fff;
+  padding: 25px 15px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* ---------- EVENTS SECTION ---------- */
+.events {
+  display: flex;
+  gap: 15px;
+  padding: 20px 15px;
+  max-width: 1000px;
+  margin: 30px auto;
+  flex-wrap: wrap;
+}
+
+.events img {
+  flex: 1;
+  min-width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.events img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+/* ---------- NEWS SECTION ---------- */
+.news-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 15px;
+}
+
+.news-item {
+  background: #fff;
+  padding: 22px;
+  margin-bottom: 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.news-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.news-item h2 {
+  color: #ff6600;
+  margin: 0;
+  font-size: 22px;
+}
+
+.news-item .date {
+  font-size: 14px;
+  color: #777;
+  margin: 8px 0 12px;
+}
+
+.news-item p {
+  line-height: 1.6;
+  font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<header>News & Updates</header>
+
+<!-- UPCOMING EVENTS -->
+<div class="events" id="eventImages">
+  <!-- Event images load here -->
+</div>
+
+<!-- NEWS LIST -->
+<div class="news-container" id="newsList">
+  <!-- News items load here -->
+</div>
+
+<script>
+/* ---------- FIREBASE CONFIG ---------- */
+const firebaseConfig = {
+  apiKey: "AIzaSyBoJdGfyASAGwxVlwqaF7a1aZqp_i6MXFg",
+  authDomain: "global-high-a001d.firebaseapp.com",
+  databaseURL: "https://global-high-a001d-default-rtdb.firebaseio.com",
+  projectId: "global-high-a001d",
+  storageBucket: "global-high-a001d.appspot.com",
+  messagingSenderId: "966103646546",
+  appId: "1:966103646546:web:cf2198f5b8384ac85d3a8b"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const newsRef = db.ref("news");
+
+/* ---------- NEWS LIST ELEMENT ---------- */
+const newsList = document.getElementById("newsList");
+
+/* ---------- LOAD ALL NEWS ---------- */
+newsRef.on("value", snapshot => {
+  newsList.innerHTML = ""; // clear existing news
+  const newsArray = [];
+
+  snapshot.forEach(child => {
+    const news = child.val();
+    newsArray.push({ id: child.key, ...news });
+  });
+
+  // Sort by date descending (newest first)
+  newsArray.sort((a,b) => new Date(b.date) - new Date(a.date));
+
+  newsArray.forEach(news => {
+    const item = document.createElement("div");
+    item.className = "news-item"; // use your CSS class
+    item.innerHTML = `
+      <div class="date">${news.date}</div>
+      <h2>${news.title}</h2>
+      <p>${news.content}</p>
+    `;
+    newsList.appendChild(item);
+  });
+});
+</script>
+
+</body>
+</html>
