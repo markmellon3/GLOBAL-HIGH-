@@ -2205,5 +2205,63 @@ mobileToggle.addEventListener('click', () => {
     </span>
   </a>
 </footer>
+<script>
+(function () {
+
+  // 🔥 Uses your existing Firebase initialization
+  const maintenanceRef = firebase.database().ref("maintenance");
+
+  // Listen for changes in maintenance settings
+  maintenanceRef.on("value", snapshot => {
+    const data = snapshot.val();
+
+    // If maintenance is OFF, do nothing
+    if (!data || !data.enabled) return;
+
+    const bgImage = data.backgroundImage || "";
+    const message = data.message || "We’ll be back shortly.";
+
+    // Lock scroll and full viewport
+    document.body.style.margin = "0";
+    document.body.style.height = "100vh";
+    document.body.style.overflow = "hidden";
+
+    // Replace page content with maintenance overlay
+    document.body.innerHTML = `
+      <div style="
+        position:fixed;
+        inset:0;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:
+          linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+          url('${bgImage}');
+        background-size:cover;
+        background-position:center;
+        font-family:Arial, sans-serif;
+        color:#fff;
+        z-index:999999;
+      ">
+        <div style="
+          max-width:420px;
+          padding:40px;
+          border-radius:18px;
+          background:rgba(0,0,0,0.55);
+          box-shadow:0 30px 60px rgba(0,0,0,0.6);
+          text-align:center;
+          backdrop-filter: blur(6px);
+        ">
+          <h1 style="margin:0 0 15px;font-size:28px;">🚧 Maintenance Mode</h1>
+          <p style="font-size:16px;line-height:1.6;opacity:.9;">
+            ${message}
+          </p>
+        </div>
+      </div>
+    `;
+  });
+
+})();
+</script>
 </body>
 </html>
