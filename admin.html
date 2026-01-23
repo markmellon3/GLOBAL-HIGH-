@@ -449,6 +449,123 @@ button{
 
 <div class="container">
   
+  <!-- ================= FIREBASE ================= -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+  // ✅ Initialize Firebase
+  if (!firebase.apps.length) {
+    firebase.initializeApp({
+      apiKey: "AIzaSyBoJdGfyASAGwxVlwqaF7a1aZqp_i6MXFg",
+      authDomain: "global-high-a001d.firebaseapp.com",
+      databaseURL: "https://global-high-a001d-default-rtdb.firebaseio.com",
+      projectId: "global-high-a001d",
+      appId: "1:966103646546:web:cf2198f5b8384ac85d3a8"
+    });
+  }
+</script>
+
+<!-- ================= MAINTENANCE ADMIN CARD ================= -->
+<div class="admin-card">
+  <h2>🚧 Maintenance Mode</h2>
+  <p>Control website availability</p>
+
+  <div class="toggle-row">
+    <span>Maintenance Status</span>
+    <label class="switch">
+      <input type="checkbox" id="maintenanceToggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <label>Maintenance Message</label>
+  <textarea id="maintenanceMessage" placeholder="We are currently undergoing maintenance..."></textarea>
+
+  <label>Background Image URL</label>
+  <input type="text" id="maintenanceBg" placeholder="https://example.com/bg.jpg">
+
+  <button id="saveMaintenanceBtn">Save Settings</button>
+  <div class="status" id="maintenanceStatusText"></div>
+</div>
+
+<style>
+.admin-card {
+  background: #111827;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+.admin-card h2 {
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+  color: #fff;
+}
+.admin-card p {
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #94a3b8;
+}
+label { display:block; margin:12px 0 6px; font-size:13px; color:#94a3b8; }
+input, textarea {
+  width:100%; padding:10px 12px; border-radius:10px; border:none;
+  font-size:13px; color:#fff; background:#1f2933;
+}
+textarea { min-height:80px; resize:vertical; }
+.toggle-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; }
+.switch { position: relative; width:50px; height:26px; }
+.switch input { opacity:0; width:0; height:0; }
+.slider {
+  position: absolute; inset:0; background: #475569; border-radius:999px; transition:0.3s;
+}
+.slider:before {
+  content:""; position:absolute; width:22px; height:22px; left:2px; bottom:2px; background:#fff; border-radius:50%; transition:0.3s;
+}
+.switch input:checked + .slider { background:#22c55e; }
+.switch input:checked + .slider:before { transform:translateX(24px); }
+button {
+  width:100%; margin-top:18px; padding:12px; background:#22c55e; border:none; border-radius:10px;
+  font-size:14px; font-weight:600; cursor:pointer;
+}
+button:hover { background:#16a34a; }
+.status { font-size:12px; color:#94a3b8; text-align:center; margin-top:10px; }
+</style>
+
+<script>
+/* ================= FIREBASE MAINTENANCE REF ================= */
+const maintenanceRef = firebase.database().ref("maintenance");
+
+/* ELEMENTS */
+const maintenanceToggle = document.getElementById("maintenanceToggle");
+const maintenanceMessage = document.getElementById("maintenanceMessage");
+const maintenanceBg = document.getElementById("maintenanceBg");
+const saveMaintenanceBtn = document.getElementById("saveMaintenanceBtn");
+const maintenanceStatusText = document.getElementById("maintenanceStatusText");
+
+/* LOAD EXISTING SETTINGS */
+maintenanceRef.on("value", snapshot => {
+  const data = snapshot.val();
+  if (!data) return;
+  maintenanceToggle.checked = !!data.enabled;
+  maintenanceMessage.value = data.message || "";
+  maintenanceBg.value = data.backgroundImage || "";
+});
+
+/* SAVE SETTINGS */
+saveMaintenanceBtn.addEventListener("click", () => {
+  maintenanceRef.set({
+    enabled: maintenanceToggle.checked,
+    message: maintenanceMessage.value.trim(),
+    backgroundImage: maintenanceBg.value.trim()
+  });
+
+  maintenanceStatusText.textContent = "✅ Settings saved successfully";
+  setTimeout(() => maintenanceStatusText.textContent = "", 3000);
+});
+</script>
+
+
   <!-- ===== LIVE WEBSITE PREVIEW ===== -->
 <div class="card">
   <h2>🌍 Live Website Preview</h2>
