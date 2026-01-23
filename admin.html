@@ -138,28 +138,113 @@ button{
   border-radius:12px;
 }
 
-/* ===== LOGIN OVERLAY ===== */
-#loginOverlay{
-  position:fixed;
-  inset:0;
-  background:#ffffff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
+/* ================= LOGIN PAGE STYLES ================= */
+
+#loginOverlay {
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  font-family: 'Inter', sans-serif;
 }
 
-.login-box{
-  background:#ffbe95;
-  padding:90px;
-  width:100%;
-  max-width:380px;
-  border-radius:16px;
-  text-align:center;
+/* CONTAINER */
+.login-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
 }
 
-.login-box h3{margin-bottom:20px}
-.login-box p{color:red;font-size:14px}
+/* HEADER */
+.login-header {
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 25px;
+}
+
+.login-header h1 {
+  font-size: clamp(1.8rem, 4vw, 2.3rem);
+  font-weight: 800;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.login-header p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* LOGIN CARD */
+.login-box {
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+}
+
+/* TITLE */
+.login-box h3 {
+  text-align: center;
+  margin-bottom: 22px;
+  font-size: 1.2rem;
+  color: #111827;
+}
+
+/* INPUTS */
+.login-box input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+}
+
+.login-box input:focus {
+  outline: none;
+  border-color: #14532d;
+  box-shadow: 0 0 0 2px rgba(20, 83, 45, 0.15);
+}
+
+/* BUTTON */
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: #14532d;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #0f3d22;
+}
+
+/* ERROR MESSAGE */
+#loginError {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: #dc2626;
+  text-align: center;
+}
+
+/* MOBILE OPTIMIZATION */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 22px;
+  }
+}
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
@@ -318,14 +403,29 @@ button{
 
 <body>
 
-<!-- LOGIN -->
+<!-- ================= ADMIN LOGIN OVERLAY ================= -->
 <div id="loginOverlay">
-  <div class="login-box">
-    <h3>🔐 Admin Login</h3>
-    <input type="email" id="adminEmail" placeholder="Email">
-    <input type="password" id="adminPassword" placeholder="Password">
-    <button class="btn-primary" onclick="login()">Login</button>
-    <p id="loginError"></p>
+  <div class="login-container">
+
+    <!-- HEADER -->
+    <div class="login-header">
+      <h1>GLOBAL  HIGH SCHOOL </h1>
+      <p>Administration Portal</p>
+      <p>Protected by markmellon industries </p>
+    </div>
+
+    <!-- LOGIN BOX -->
+    <div class="login-box">
+      <h3>🔐 Admin Login</h3>
+
+      <input type="email" id="adminEmail" placeholder="Email address">
+      <input type="password" id="adminPassword" placeholder="Password">
+
+      <button class="btn-primary" onclick="login()">Login</button>
+
+      <p id="loginError"></p>
+    </div>
+
   </div>
 </div>
 
@@ -363,7 +463,7 @@ button{
   <div style="border-radius:12px;overflow:hidden;border:1px solid #ddd;">
     <iframe 
       id="livePreview"
-      src="https://purposefullivingchurchplc.org/"
+      src="https://markmellon3.github.io/GLOBAL-HIGH-/"
       style="width:100%;height:600px;border:none;">
     </iframe>
   </div>
@@ -887,6 +987,8 @@ document.getElementById("imageLoader").style.display = "none";
       });
   });
 </script>
+
+
 <!-- ================= DOCUMENTS ADMIN PANEL ================= -->
 <section class="docs-admin">
 
@@ -899,7 +1001,7 @@ document.getElementById("imageLoader").style.display = "none";
     <label>Document Title</label>
     <input type="text" id="docTitle" placeholder="e.g. Admission Form">
 
-    <label>Image URL (Firebase Storage / External)</label>
+    <label>Document Image / PDF Preview URL</label>
     <input type="text" id="docImage" placeholder="https://...">
 
     <button id="addDocBtn">➕ Add Document</button>
@@ -916,107 +1018,177 @@ document.getElementById("imageLoader").style.display = "none";
 </section>
 
 <style>
-/* ================= DOCUMENTS ADMIN CSS ================= */
+<style>
+/* ================= DOCUMENTS ADMIN CSS (RESPONSIVE WHITE UI) ================= */
+
+:root {
+  --bg: #f3f4f6;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --text: #111827;
+  --muted: #6b7280;
+  --green: #22c55e;
+  --green-dark: #16a34a;
+  --red: #ef4444;
+  --red-dark: #dc2626;
+}
+
+body {
+  background: var(--bg);
+}
+
+/* WRAPPER */
 .docs-admin {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 40px auto;
+  padding: 0 16px;
   font-family: 'Inter', sans-serif;
 }
 
+/* TITLE */
 .docs-title {
   text-align: center;
-  margin-bottom: 25px;
-}
-
-.docs-card {
-  background: #15253e;
-  padding: 25px;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.35);
   margin-bottom: 30px;
-  color: #e5e7eb;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: var(--text);
 }
 
+/* CARD */
+.docs-card {
+  background: var(--card);
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+  margin-bottom: 30px;
+}
+
+/* HEADINGS */
 .docs-card h3 {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
+  font-size: 1.2rem;
+  color: var(--text);
 }
 
+/* LABEL */
 .docs-card label {
   display: block;
   font-weight: 600;
   margin-bottom: 6px;
+  color: var(--text);
 }
 
+/* INPUT */
 .docs-card input {
   width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  margin-bottom: 15px;
-  background: #1f2933;
-  color: #000000;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+  background: #8e8e8e;
+  color: var(--text);
+  font-size: 0.95rem;
 }
 
+.docs-card input:focus {
+  outline: none;
+  border-color: var(--green);
+}
+
+/* BUTTON */
 .docs-card button {
   width: 100%;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 14px;
+  border-radius: 10px;
   border: none;
   font-weight: 700;
   cursor: pointer;
-  background: #22c55e;
-  color: #052e16;
+  background: var(--green);
+  color: #122fd5;
+  font-size: 1rem;
+  transition: background 0.2s ease;
 }
 
 .docs-card button:hover {
-  background: #16a34a;
+  background: var(--green-dark);
 }
 
+/* GRID */
 .docs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
 }
 
+/* DOCUMENT ITEM */
 .docs-item {
-  background: #020617;
-  border-radius: 12px;
+  background: #ffffff;
+  border-radius: 14px;
   padding: 15px;
+  border: 1px solid var(--border);
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+  display: flex;
+  flex-direction: column;
 }
 
+/* IMAGE */
 .docs-item img {
   width: 100%;
-  height: 200px;
+  height: 180px;
   object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
+/* TITLE */
 .docs-item-title {
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  color: var(--text);
+  font-size: 0.95rem;
 }
 
+/* DELETE BUTTON */
 .docs-delete {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
+  margin-top: auto;
+  padding: 12px;
+  border-radius: 10px;
   border: none;
-  background: #ef4444;
-  color: #000000;
+  background: var(--red);
+  color: #008e31;
   font-weight: 600;
   cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
 }
 
 .docs-delete:hover {
-  background: #dc2626;
+  background: var(--red-dark);
+}
+
+/* ================= MOBILE OPTIMIZATION ================= */
+@media (max-width: 600px) {
+
+  .docs-card {
+    padding: 18px;
+  }
+
+  .docs-item img {
+    height: 160px;
+  }
+
+  .docs-card button,
+  .docs-delete {
+    padding: 14px;
+    font-size: 1rem;
+  }
 }
 </style>
 
 <script>
 /* ================= DOCUMENTS ADMIN LOGIC ================= */
+/* Uses EXISTING Firebase initialization */
 
-// uses existing Firebase initialization
 const documentsRef = firebase.database().ref("documents");
 
 const grid = document.getElementById("documentsGrid");
@@ -1030,13 +1202,13 @@ addBtn.addEventListener("click", () => {
   const imageUrl = docImage.value.trim();
 
   if (!imageUrl) {
-    alert("Image URL is required");
+    alert("Document image or PDF preview URL is required.");
     return;
   }
 
   documentsRef.push({
-    title,
-    imageUrl,
+    title: title || "Untitled Document",
+    imageUrl: imageUrl,
     createdAt: Date.now()
   });
 
@@ -1044,13 +1216,14 @@ addBtn.addEventListener("click", () => {
   docImage.value = "";
 });
 
-/* LOAD DOCUMENTS (REALTIME) */
+/* LOAD DOCUMENTS (REALTIME & CLEAN RENDER) */
 documentsRef.on("value", snapshot => {
   grid.innerHTML = "";
+
   const data = snapshot.val();
 
   if (!data) {
-    grid.innerHTML = "<p>No documents available.</p>";
+    grid.innerHTML = "<p style='color:#9ca3af'>No documents available.</p>";
     return;
   }
 
@@ -1063,24 +1236,38 @@ documentsRef.on("value", snapshot => {
 
       div.innerHTML = `
         <img src="${doc.imageUrl}"
-             onerror="this.src='https://via.placeholder.com/400x300?text=Error'">
-        <div class="docs-item-title">${doc.title || "Untitled Document"}</div>
-        <button class="docs-delete" onclick="deleteDocument('${id}')">
+             onerror="this.src='https://via.placeholder.com/400x300?text=Preview+Unavailable'">
+        <div class="docs-item-title">${doc.title}</div>
+        <button class="docs-delete" data-id="${id}">
           🗑 Delete
         </button>
       `;
+
+      div.querySelector(".docs-delete").addEventListener("click", () => {
+        deleteDocument(id);
+      });
 
       grid.appendChild(div);
     });
 });
 
-/* DELETE DOCUMENT */
+/* DELETE DOCUMENT (REAL FIREBASE DELETE) */
 function deleteDocument(id) {
-  if (confirm("Delete this document?")) {
-    documentsRef.child(id).remove();
-  }
+  if (!confirm("Delete this document permanently?")) return;
+
+  firebase.database()
+    .ref("documents/" + id)
+    .remove()
+    .then(() => {
+      console.log("Document deleted:", id);
+    })
+    .catch(err => {
+      console.error("Delete failed:", err);
+      alert("Failed to delete document.");
+    });
 }
 </script>
+
 <!-- ================= PDF UPLOAD ADMIN CARD ================= -->
 <div class="admin-card">
   <h2>📄 PDF Upload Panel – Store in DB</h2>
@@ -1108,102 +1295,136 @@ function deleteDocument(id) {
 </div>
 
 <style>
-/* ================= PROFESSIONAL PDF ADMIN CSS ================= */
-.admin-card {
-  background: #1e293b; /* Darker professional tone */
-  padding: 30px;
-  border-radius: 16px;
-  margin-bottom: 30px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
-  border: 1px solid #334155;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.admin-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.45);
+/* ================= PROFESSIONAL PDF ADMIN CSS (WHITE UI) ================= */
+
+:root {
+  --bg: #f3f4f6;
+  --card: #ffffff;
+  --border: #d1d5db;
+  --text: #111827;
+  --muted: #6b7280;
+  --green: #14532d;      /* dark green */
+  --green-soft: #22c55e;
+  --red: #b91c1c;
 }
 
+body {
+  background: var(--bg);
+}
+
+/* ================= ADMIN CARD ================= */
+.admin-card {
+  background: var(--card);
+  padding: 28px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* ================= CARD TITLE ================= */
 .admin-card h2 {
-  margin-bottom: 24px;
-  font-size: 1.6rem;
-  color: #f1f5f9;
+  margin-bottom: 22px;
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  color: var(--text);
   font-weight: 700;
-  border-bottom: 2px solid #3b82f6;
+  border-bottom: 2px solid var(--green);
   padding-bottom: 8px;
 }
 
-input, select, button {
+/* ================= FORM ELEMENTS ================= */
+input,
+select,
+button {
   width: 100%;
   padding: 14px 16px;
   border-radius: 10px;
   margin-bottom: 18px;
   font-size: 15px;
-  border: 1px solid #475569;
   transition: all 0.2s ease;
 }
 
-input, select {
-  background: #b9b9b9;
-  color: #f1f5f9;
+/* INPUTS */
+input,
+select {
+  background: #b3b3b3;
+  color: var(--text);
+  border: 1px solid var(--border);
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 6px rgba(59, 130, 246, 0.4);
+  border-color: var(--green);
+  box-shadow: 0 0 0 2px rgba(20, 83, 45, 0.15);
 }
 
+/* BUTTONS (BORDERED DARK GREEN) */
 button {
-  background: #3b82f6;
-  color: #fff;
+  background: transparent;
+  color: var(--green);
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s ease;
-  border: none;
+  border: 2px solid var(--green);
 }
+
 button:hover {
-  background: #2563eb;
+  background: var(--green);
+  color: #ffffff;
 }
+
 button:disabled {
-  background: #64748b;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
+/* ================= PDF GRID ================= */
 .pdf-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 22px;
 }
 
+/* ================= PDF CARD ================= */
 .pdf-card {
-  background: #0f172a;
+  background: var(--card);
   border-radius: 14px;
   padding: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-  border: 1px solid #334155;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  border: 1px solid var(--border);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 .pdf-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 14px 28px rgba(0,0,0,0.5);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.12);
 }
 
+/* ================= TEXT ================= */
 .pdf-title {
   font-weight: 600;
-  font-size: 1.1rem;
-  color: #f1f5f9;
+  font-size: 1.05rem;
+  color: var(--text);
   margin-bottom: 6px;
 }
 
 .pdf-category {
   font-size: 13px;
-  color: #94a3b8;
-  margin-bottom: 12px;
+  color: var(--muted);
+  margin-bottom: 14px;
 }
 
+/* ================= ACTIONS ================= */
 .pdf-actions {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .pdf-actions a,
@@ -1211,7 +1432,6 @@ button:disabled {
   flex: 1;
   padding: 10px 12px;
   border-radius: 8px;
-  border: none;
   font-weight: 600;
   font-size: 13px;
   cursor: pointer;
@@ -1219,30 +1439,85 @@ button:disabled {
   transition: all 0.2s ease;
 }
 
+/* VIEW BUTTON */
 .view-btn {
-  background: #22c55e;
-  color: #0f172a;
+  background: transparent;
+  border: 2px solid var(--green);
+  color: var(--green);
   text-decoration: none;
 }
+
 .view-btn:hover {
-  background: #16a34a;
-  color: #fff;
+  background: var(--green);
+  color: #ffffff;
 }
 
+/* DELETE BUTTON */
 .delete-btn {
-  background: #ef4444;
-  color: #fff;
-}
-.delete-btn:hover {
-  background: #dc2626;
+  background: transparent;
+  border: 2px solid var(--red);
+  color: var(--red);
 }
 
-/* Responsive tweaks */
-@media (max-width: 768px) {
+.delete-btn:hover {
+  background: var(--red);
+  color: #ffffff;
+}
+
+/* ================= RESPONSIVE OPTIMIZATION (ALL DEVICES) ================= */
+
+/* Large screens (desktop & laptops) */
+@media (min-width: 1024px) {
+  .admin-card {
+    padding: 22px;
+    max-width: 100%;
+  }
+
   .pdf-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .pdf-card {
+    padding: 18px;
   }
 }
+
+/* Tablets */
+@media (max-width: 1023px) and (min-width: 669px) {
+  .admin-card {
+    padding: 20px;
+  }
+
+  .pdf-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pdf-card {
+    padding: 16px;
+  }
+}
+
+/* Phones */
+@media (max-width: 668px) {
+  .admin-card {
+    padding: 16px;
+  }
+
+  .pdf-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .pdf-card {
+    padding: 14px;
+  }
+
+  .pdf-actions a,
+  .pdf-actions button {
+    font-size: 14px;
+    padding: 10px;
+  }
+} 
 </style>
 
 <script>
