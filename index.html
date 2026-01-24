@@ -495,6 +495,84 @@ copyright {
     font-size:1rem;
   }
 }
+
+/* ================= MODAL STYLES ================= */
+.modal {
+  display: none; /* hidden by default */
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.modal.show {
+  display: flex;
+  opacity: 1;
+}
+.modal-content {
+  background: #f7f7f779#;
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 350px;
+  color: #000000;
+  position: relative;
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+.modal.show .modal-content {
+  transform: translateY(0);
+}
+.modal-content h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+.modal-content label {
+  display:block;
+  margin:12px 0 4px;
+  font-size: 13px;
+  color:#000000;
+}
+.modal-content input, .modal-content textarea {
+  width:100%;
+  padding:10px 12px;
+  border-radius:8px;
+  border:none;
+  background:#1f2933;
+  color:#fff;
+  font-size:13px;
+}
+textarea { resize: vertical; min-height:70px; }
+.modal-content button {
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  border:none;
+  border-radius:8px;
+  background:#22c55e;
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+.modal-content button:hover { background:#16a34a; }
+.close {
+  position:absolute;
+  top:10px;
+  right:12px;
+  font-size:20px;
+  cursor:pointer;
+  color:#fff;
+}
+#formStatus {
+  margin-top:10px;
+  font-size:13px;
+  color:#94a3b8;
+  text-align:center;
+}
+
 </style>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -590,7 +668,33 @@ copyright {
     <h1>GLOBAL HIGH SCHOOL ENTEBBE </h1>
     <p>STRIVE TO ACHIEVE</p>
 
-    <a class="btn outline" href="#events">APPLY NOW</a>
+    <!-- ================= APPLY NOW BUTTON ================= -->
+<a class="btn outline" href="#" id="applyNowBtn">APPLY NOW</a>
+
+<!-- ================= MODAL ================= -->
+<div id="applyModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Apply Now</h2>
+    <form id="applyForm">
+      <label>First Name</label>
+      <input type="text" id="firstName" required placeholder="">
+
+      <label>Second Name</label>
+      <input type="text" id="secondName" required placeholder="">
+
+      <label>Phone Number</label>
+      <input type="tel" id="phoneNumber" required placeholder="+256743668990">
+
+      <label>Place of Residence</label>
+      <input type="text" id="residence" required placeholder="City, Country,">
+
+      <label>Description</label>
+      <textarea id="description" placeholder="Tell us something..." required></textarea>
+
+      <button type="submit">Send</button>
+      <div id="formStatus"></div>
+    </form>
   </div>
 </section>
 
@@ -2262,6 +2366,197 @@ mobileToggle.addEventListener('click', () => {
   });
 
 })();
+</script>
+<script>
+(function () {
+
+  const adsRef = firebase.database().ref("advertisements");
+
+  adsRef.once("value").then(snapshot => {
+    const data = snapshot.val();
+    if (!data || !data.enabled || !data.images) return;
+
+    const ads = Object.entries(data.images);
+    if (!ads.length) return;
+
+    // Pick random ad
+    const [adId, ad] = ads[Math.floor(Math.random() * ads.length)];
+
+    const overlay = document.createElement("div");
+    overlay.style.cssText = `
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.65);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:999999;
+    `;
+
+    const box = document.createElement("div");
+    box.style.cssText = `
+      background:#000;
+      border-radius:18px;
+      overflow:hidden;
+      max-width:380px;
+      width:90%;
+      position:relative;
+      box-shadow:0 30px 60px rgba(0,0,0,0.7);
+      cursor:pointer;
+    `;
+
+    box.innerHTML = `
+      <img src="${ad.imageUrl}" style="width:100%;display:block;">
+      <button style="
+        position:absolute;
+        top:10px;
+        right:10px;
+        background:rgba(0,0,0,0.6);
+        color:white;
+        border:none;
+        border-radius:50%;
+        width:32px;
+        height:32px;
+        font-size:18px;
+        cursor:pointer;
+      ">×</button>
+    `;
+
+    // Close
+    box.querySelector("button").onclick = e => {
+      e.stopPropagation();
+      overlay.remove();
+    };
+
+    // Click tracking
+    box.onclick = () => {
+      adsRef.child("images").child(adId).child("clicks")
+        .transaction(c => (c || 0) + 1);
+
+      if (ad.linkUrl) {
+        window.open(ad.linkUrl, "_blank");
+      }
+
+      overlay.remove();
+    };
+
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+  });
+
+})();
+</script>
+<script>
+(function () {
+
+  const db = firebase.database();
+  const statsRef = db.ref("totalVisitors/stats");
+  const onlineRef = db.ref("totalVisitors/online");
+
+  /* ================= TOTAL VISITORS ================= */
+  // Count visit once per browser session
+  const VISIT_KEY = "siteVisited";
+
+  if (!sessionStorage.getItem(VISIT_KEY)) {
+    statsRef.child("visitors").transaction(v => (v || 0) + 1);
+    sessionStorage.setItem(VISIT_KEY, "true");
+  }
+
+  /* ================= TOTAL CLICKS ================= */
+  document.addEventListener("click", () => {
+    statsRef.child("clicks").transaction(c => (c || 0) + 1);
+  });
+
+  /* ================= PEOPLE ONLINE ================= */
+  const sessionId = "session_" + Math.random().toString(36).slice(2);
+  const userRef = onlineRef.child(sessionId);
+
+  // Mark user online
+  userRef.set(true);
+
+  // Remove when user disconnects
+  userRef.onDisconnect().remove();
+
+})();
+</script>
+<script>
+firebase.database().ref("totalVisitors").on("value", snap => {
+  const data = snap.val() || {};
+  const visitors = data.stats?.visitors || 0;
+  const clicks = data.stats?.clicks || 0;
+  const online = data.online ? Object.keys(data.online).length : 0;
+
+  console.log("Visitors:", visitors);
+  console.log("Clicks:", clicks);
+  console.log("Online:", online);
+});
+</script>
+
+
+<script>
+/* ================= MODAL FUNCTIONALITY ================= */
+const applyBtn = document.getElementById("applyNowBtn");
+const modal = document.getElementById("applyModal");
+const closeBtn = modal.querySelector(".close");
+
+applyBtn.addEventListener("click", e => {
+  e.preventDefault();
+  modal.classList.add("show");
+});
+
+closeBtn.addEventListener("click", () => modal.classList.remove("show"));
+
+window.addEventListener("click", e => {
+  if (e.target === modal) modal.classList.remove("show");
+});
+
+/* ================= FIREBASE FORM SUBMISSION ================= */
+/* Using existing firebase instance */
+const db = firebase.database(); // no need to initialize again
+const mailsRef = db.ref("mails");
+
+const applyForm = document.getElementById("applyForm");
+const formStatus = document.getElementById("formStatus");
+
+applyForm.addEventListener("submit", e => {
+  e.preventDefault();
+
+  const firstName = document.getElementById("firstName").value.trim();
+  const secondName = document.getElementById("secondName").value.trim();
+  const phoneNumber = document.getElementById("phoneNumber").value.trim();
+  const residence = document.getElementById("residence").value.trim();
+  const description = document.getElementById("description").value.trim();
+
+  if(!firstName || !secondName || !phoneNumber || !residence || !description){
+    formStatus.textContent = "Please fill in all fields.";
+    return;
+  }
+
+  const submitBtn = applyForm.querySelector("button");
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Sending...";
+
+  mailsRef.push({
+    firstName,
+    secondName,
+    phoneNumber,
+    residence,
+    description,
+    createdAt: Date.now()
+  })
+  .then(() => {
+    formStatus.textContent = "✅ Your information has been sent!";
+    applyForm.reset();
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Send";
+    modal.classList.remove("show"); // auto close
+  })
+  .catch(err => {
+    formStatus.textContent = "❌ Error: " + err.message;
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Send";
+  });
+});
 </script>
 </body>
 </html>
