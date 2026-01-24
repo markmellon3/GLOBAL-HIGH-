@@ -465,6 +465,272 @@ button{
     });
   }
 </script>
+<!-- ================= ANALYTICS ADMIN CARD ================= -->
+<div class="admin-card" id="analyticsAdminCard">
+  <h2>📊 Website Analytics</h2>
+
+  <div class="analytics-grid">
+    <div class="analytics-box">
+      <span class="icon">👥</span>
+      <div class="label">Total Visitors</div>
+      <div class="value" id="adminTotalVisitors">0</div>
+    </div>
+
+    <div class="analytics-box">
+      <span class="icon">🖱️</span>
+      <div class="label">Total Clicks</div>
+      <div class="value" id="adminTotalClicks">0</div>
+    </div>
+
+    <div class="analytics-box live">
+      <span class="icon">🟢</span>
+      <div class="label">People Online</div>
+      <div class="value" id="adminPeopleOnline">0</div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ================= ANALYTICS ADMIN CSS ================= */
+.admin-card {
+  background: #111827;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+.admin-card h2 {
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  color: #fff;
+}
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+}
+.analytics-box {
+  background: #020617;
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+.analytics-box .icon {
+  font-size: 28px;
+  display: block;
+  margin-bottom: 6px;
+}
+.analytics-box .label {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+.analytics-box .value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+.analytics-box.live .value {
+  color: #22c55e;
+}
+</style>
+
+<script>
+/* ================= ANALYTICS ADMIN JS ================= */
+(function(){
+  if (!firebase || !firebase.database) {
+    console.error("Firebase not initialized. Make sure your admin panel already includes Firebase.");
+    return;
+  }
+
+  const analyticsRef = firebase.database().ref("totalVisitors");
+
+  const totalVisitorsEl = document.getElementById("adminTotalVisitors");
+  const totalClicksEl = document.getElementById("adminTotalClicks");
+  const peopleOnlineEl = document.getElementById("adminPeopleOnline");
+
+  analyticsRef.on("value", snapshot => {
+    const data = snapshot.val() || {};
+
+    const visitors = data.stats?.visitors || 0;
+    const clicks = data.stats?.clicks || 0;
+    const online = data.online ? Object.keys(data.online).length : 0;
+
+    totalVisitorsEl.textContent = visitors.toLocaleString();
+    totalClicksEl.textContent = clicks.toLocaleString();
+    peopleOnlineEl.textContent = online.toLocaleString();
+  });
+})();
+</script>
+<!-- ================= APPLY SUBMISSIONS ADMIN CARD ================= -->
+<div class="admin-card">
+  <h2>📬 APPLY SUBMISSIONS MAILS</h2>
+  <div id="mailsTableContainer">
+    Loading submissions...
+  </div>
+</div>
+
+<style>
+/* ================= ADMIN CARD ================= */
+.admin-card {
+  background: #111827;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  overflow-x: auto; /* allows horizontal scroll on small screens */
+}
+
+.admin-card h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-align: center;
+}
+
+/* ================= TABLE ================= */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 600px; /* allow scroll on mobile */
+}
+
+thead {
+  background: #1e293b;
+}
+
+th, td {
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 14px;
+  color: #f8fafc; /* ensure high contrast */
+  border-bottom: 1px solid #2e3a52; /* subtle row separation */
+}
+
+th {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+tbody tr:nth-child(even) {
+  background: #0f172a;
+}
+
+tbody tr:nth-child(odd) {
+  background: #111827;
+}
+
+tbody tr:hover {
+  background: #1f2937;
+  transition: background 0.3s;
+}
+
+/* ================= BUTTON ================= */
+.delete-btn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.3s;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  th, td {
+    font-size: 13px;
+    padding: 10px 8px;
+  }
+
+  table {
+    min-width: unset;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-card {
+    padding: 20px 15px;
+  }
+
+  th, td {
+    font-size: 12px;
+    padding: 8px 6px;
+  }
+
+  .delete-btn {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+}
+</style>
+
+<script>
+/* ================= FIREBASE REF ================= */
+const mailsRef = firebase.database().ref("mails");
+const mailsTableContainer = document.getElementById("mailsTableContainer");
+
+/* ================= LOAD SUBMISSIONS ================= */
+function renderMails(snapshot) {
+  const data = snapshot.val();
+  if (!data) {
+    mailsTableContainer.innerHTML = "<p style='color:#94a3b8;'>No submissions yet.</p>";
+    return;
+  }
+
+  let tableHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Second Name</th>
+          <th>Phone</th>
+          <th>Residence</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  Object.entries(data).sort((a,b) => b[1].createdAt - a[1].createdAt).forEach(([id, mail]) => {
+    const date = new Date(mail.createdAt).toLocaleString();
+    tableHTML += `
+      <tr>
+        <td>${mail.firstName}</td>
+        <td>${mail.secondName}</td>
+        <td>${mail.phoneNumber}</td>
+        <td>${mail.residence}</td>
+        <td>${mail.description}</td>
+        <td>${date}</td>
+        <td><button class="delete-btn" onclick="deleteMail('${id}')">Delete</button></td>
+      </tr>
+    `;
+  });
+
+  tableHTML += `</tbody></table>`;
+  mailsTableContainer.innerHTML = tableHTML;
+}
+
+/* ================= REAL-TIME LISTENER ================= */
+mailsRef.on("value", snapshot => {
+  renderMails(snapshot);
+});
+
+/* ================= DELETE FUNCTION ================= */
+function deleteMail(id) {
+  if(!confirm("Are you sure you want to delete this submission?")) return;
+  mailsRef.child(id).remove();
+}
+</script>
 
 <!-- ================= MAINTENANCE ADMIN CARD ================= -->
 <div class="admin-card">
@@ -565,6 +831,89 @@ saveMaintenanceBtn.addEventListener("click", () => {
 });
 </script>
 
+<!-- ================= ADVERTISEMENT ADMIN CARD ================= -->
+<div class="admin-card">
+  <h2>📢 Advertisements</h2>
+  <p>Manage ads & view clicks</p>
+
+  <div class="toggle-row">
+    <span>Enable Ads</span>
+    <label class="switch">
+      <input type="checkbox" id="adsToggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <label>Ad Image URL</label>
+  <input type="text" id="adImage">
+
+  <label>Redirect URL (optional)</label>
+  <input type="text" id="adLink">
+
+  <button id="addAdBtn">➕ Add Advertisement</button>
+
+  <div class="pdf-grid" id="adsList"></div>
+</div>
+
+<script>
+const adsRef = firebase.database().ref("advertisements");
+
+const adsToggle = document.getElementById("adsToggle");
+const adImage = document.getElementById("adImage");
+const adLink = document.getElementById("adLink");
+const adsList = document.getElementById("adsList");
+
+/* LOAD ADS */
+adsRef.on("value", snap => {
+  const data = snap.val() || {};
+  adsToggle.checked = !!data.enabled;
+  adsList.innerHTML = "";
+
+  if (!data.images) return;
+
+  Object.entries(data.images)
+    .sort((a,b) => (b[1].clicks||0) - (a[1].clicks||0))
+    .forEach(([id, ad]) => {
+      const card = document.createElement("div");
+      card.className = "pdf-card";
+      card.innerHTML = `
+        <img src="${ad.imageUrl}" style="width:100%;border-radius:10px;">
+        <div class="pdf-title">Clicks: ${ad.clicks || 0}</div>
+        <div class="pdf-category">${ad.linkUrl || "No redirect"}</div>
+        <div class="pdf-actions">
+          <button class="delete-btn" onclick="deleteAd('${id}')">Delete</button>
+        </div>
+      `;
+      adsList.appendChild(card);
+    });
+});
+
+/* TOGGLE ADS */
+adsToggle.onchange = () => {
+  adsRef.update({ enabled: adsToggle.checked });
+};
+
+/* ADD AD */
+document.getElementById("addAdBtn").onclick = () => {
+  if (!adImage.value.trim()) return alert("Image URL required");
+
+  adsRef.child("images").push({
+    imageUrl: adImage.value.trim(),
+    linkUrl: adLink.value.trim(),
+    clicks: 0,
+    createdAt: Date.now()
+  });
+
+  adImage.value = "";
+  adLink.value = "";
+};
+
+/* DELETE */
+function deleteAd(id) {
+  if (!confirm("Delete this ad?")) return;
+  adsRef.child("images").child(id).remove();
+}
+</script>
 
   <!-- ===== LIVE WEBSITE PREVIEW ===== -->
 <div class="card">
