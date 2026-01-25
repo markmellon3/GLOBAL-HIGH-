@@ -1454,7 +1454,287 @@ document.getElementById("imageLoader").style.display = "none";
   });
 </script>
 
+<!-- ================= GOOGLE IMAGES ADMIN MODULE ================= -->
+<div class="admin-card">
+  <h2>🖼️ Google Images Management</h2>
 
+  <!-- ADD IMAGE -->
+  <label>Image URL</label>
+  <input type="url" id="googleImageUrl" placeholder="https://i.ibb.co/xxxx/image.jpg">
+
+  <label>Image Title (SEO)</label>
+  <input type="text" id="googleImageTitle" placeholder="Global High School Entebbe">
+
+  <label>Description (SEO)</label>
+  <textarea id="googleImageDescription"></textarea>
+
+  <div class="preview" id="googleImagePreview">
+    <img id="googlePreviewImg">
+  </div>
+
+  <button id="googleAddImageBtn">Add Image</button>
+  <div class="status" id="googleFormStatus"></div>
+</div>
+
+<!-- IMAGE LIST -->
+<div class="admin-card">
+  <h2>Uploaded Google Images</h2>
+  <div class="gallery-grid" id="googleAdminGallery"></div>
+</div>
+<style>
+
+/* ================= ADMIN CARD ================= */
+.admin-card {
+  background: #0f172a;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  margin-bottom: 30px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.admin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+}
+.admin-card h2 {
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+/* ================= FORM ELEMENTS ================= */
+label {
+  font-size: 13px;
+  color: #94a3b8;
+  display: block;
+  margin: 12px 0 5px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #111827;
+  color: #f8fafc;
+  font-size: 14px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+button {
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #22c55e;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+button:hover {
+  background: #16a34a;
+  transform: scale(1.02);
+}
+
+.status {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+/* ================= IMAGE PREVIEW ================= */
+.preview {
+  margin-top: 15px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: none;
+  border: 1px solid #1f2937;
+  background: #111827;
+}
+.preview img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ================= GALLERY GRID ================= */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* ================= GALLERY CARD ================= */
+.gallery-item {
+  background: #111827;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.gallery-info {
+  padding: 12px;
+}
+
+.gallery-info h4 {
+  font-size: 14px;
+  margin: 0 0 6px;
+  color: #fff;
+}
+
+.gallery-info p {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0 0 10px;
+}
+
+.delete-btn {
+  width: 100%;
+  background: #ef4444;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  font-size: 12px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 480px) {
+  .admin-card {
+    padding: 20px 15px;
+  }
+  .gallery-info h4 {
+    font-size: 13px;
+  }
+  .gallery-info p {
+    font-size: 11px;
+  }
+  .delete-btn {
+    font-size: 11px;
+    padding: 6px;
+  }
+  button {
+    font-size: 13px;
+    padding: 10px;
+  }
+} 
+
+
+</style>
+<script>
+/* ================= GOOGLE IMAGES ADMIN SCRIPT ================= */
+/* Firebase must already be initialized in main admin panel */
+
+// Use the correct Firebase node
+const googleImagesRef = firebase.database().ref("google");
+
+/* ELEMENTS */
+const gImageUrl = document.getElementById("googleImageUrl");
+const gImageTitle = document.getElementById("googleImageTitle");
+const gImageDesc = document.getElementById("googleImageDescription");
+const gAddBtn = document.getElementById("googleAddImageBtn");
+const gFormStatus = document.getElementById("googleFormStatus");
+const gPreview = document.getElementById("googleImagePreview");
+const gPreviewImg = document.getElementById("googlePreviewImg");
+const gGallery = document.getElementById("googleAdminGallery");
+
+/* IMAGE PREVIEW */
+gImageUrl.addEventListener("input", () => {
+  const url = gImageUrl.value.trim();
+  if (url.match(/\.(jpg|jpeg|png|webp|gif)$/i)) {
+    gPreview.style.display = "block";
+    gPreviewImg.src = url;
+  } else {
+    gPreview.style.display = "none";
+  }
+});
+
+/* ADD IMAGE */
+gAddBtn.addEventListener("click", () => {
+  const url = gImageUrl.value.trim();
+  const title = gImageTitle.value.trim();
+  const desc = gImageDesc.value.trim();
+
+  if (!url || !title) {
+    gFormStatus.textContent = "❌ Image URL and Title are required.";
+    return;
+  }
+
+  gAddBtn.disabled = true;
+  gAddBtn.textContent = "Adding...";
+
+  googleImagesRef.push({
+    imageUrl: url,
+    title: title,
+    description: desc,
+    createdAt: Date.now()
+  }).then(() => {
+    gFormStatus.textContent = "✅ Image added!";
+    gImageUrl.value = "";
+    gImageTitle.value = "";
+    gImageDesc.value = "";
+    gPreview.style.display = "none";
+    gAddBtn.disabled = false;
+    gAddBtn.textContent = "Add Image";
+  }).catch(err => {
+    gFormStatus.textContent = "❌ " + err.message;
+    gAddBtn.disabled = false;
+    gAddBtn.textContent = "Add Image";
+  });
+});
+
+/* LOAD IMAGES */
+googleImagesRef.orderByChild("createdAt").on("value", snap => {
+  gGallery.innerHTML = "";
+  snap.forEach(child => {
+    const data = child.val();
+    const key = child.key;
+
+    const div = document.createElement("div");
+    div.className = "gallery-item";
+    div.innerHTML = `
+      <img src="${data.imageUrl}" alt="${data.title}">
+      <div class="gallery-info">
+        <h4>${data.title}</h4>
+        <p>${data.description || ""}</p>
+        <button class="delete-btn">Delete</button>
+      </div>
+    `;
+
+    // DELETE IMAGE
+    div.querySelector(".delete-btn").onclick = () => {
+      if (confirm("Delete this image?")) googleImagesRef.child(key).remove();
+    };
+
+    gGallery.appendChild(div);
+  });
+});
+</script>
 <!-- ================= DOCUMENTS ADMIN PANEL ================= -->
 <section class="docs-admin">
 
