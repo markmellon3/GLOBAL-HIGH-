@@ -444,6 +444,35 @@ button{
   <div class="header-right">
     <span class="status-dot"></span>
     <span>Online</span>
+    <!-- LOGOUT BUTTON -->
+<div style="text-align: right; margin-bottom: 20px;">
+  <button id="logoutBtn" style="
+    padding: 10px 20px;
+    background: #ef4444;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+  ">Logout</button>
+</div>
+
+<script>
+// LOGOUT FUNCTION
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  // If using Firebase Auth, you would call: firebase.auth().signOut()
+  // For a simple admin panel without auth, we'll just redirect to login page:
+  
+  if (confirm("Are you sure you want to logout?")) {
+    // Optional: Clear any local session storage if used
+    // localStorage.removeItem("adminLoggedIn");
+    
+    // Redirect to login page or home page
+    window.location.href = "https://www.google.com"; // change this to your login page
+  }
+});
+</script>
   </div>
 </header>
 
