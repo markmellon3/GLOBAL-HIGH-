@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Global High School Entebbe | School Gallery</title>
+<!-- Favicon -->
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" href="https://i.ibb.co/mrWQCrrb/blob.jpg" sizes="512x512">
+<link rel="apple-touch-icon" href="https://ik.imagekit.io/s95tumxuk/1763291103188.jpg">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- 🔥 SEO META -->
+<meta name="description" content="Photos of students, classrooms, and school life at Global High School Entebbe, Uganda.">
+<meta name="keywords" content="Global High School Entebbe, globalhighschoolenttebbe, school gallery, Uganda school">
+
+<!-- 🔥 OPEN GRAPH -->
+<meta property="og:title" content="Global High School Entebbe Gallery">
+<meta property="og:description" content="Official gallery of Global High School Entebbe">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://globalhighschoolenttebbe.com/gallery.html">
+
+<!-- 🔥 GOOGLE IMAGE SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "Global High School Entebbe Gallery",
+  "description": "Official photo gallery of Global High School Entebbe"
+}
+</script>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #020617;
+  color: #f8fafc;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px 15px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* NAV BUTTON */
+.nav-btn {
+  display: inline-block;
+  margin: 0 auto 25px;
+  padding: 12px 25px;
+  background: #22c55e;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.3s;
+}
+.nav-btn:hover {
+  background: #16a34a;
+}
+
+/* GALLERY GRID */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.gallery-item {
+  background: #111827;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto; /* Auto height keeps original aspect ratio */
+  object-fit: contain; /* ensures image fits inside card */
+  display: block;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>📸 Global High School Entebbe – Gallery</h1>
+
+  <!-- NAVIGATION BUTTON -->
+  <div style="text-align:center;">
+    <a href="https://globalhighschoolenttebbe.com" class="nav-btn">🏠 visit main school website </a>
+  </div>
+<div id="redirectNotice" style="text-align:center; margin-top:20px; font-family:Arial, sans-serif; color:#fff; font-size:16px;">
+  You will be redirected to the main website in <span id="countdown">30</span> seconds...
+</div>
+
+<script>
+let countdownTime = 30; // 30 seconds
+const countdownEl = document.getElementById("countdown");
+
+const interval = setInterval(() => {
+  countdownTime--;
+  countdownEl.textContent = countdownTime;
+
+  if (countdownTime <= 0) {
+    clearInterval(interval);
+    window.location.href = "index.html";
+  }
+}, 1000);
+</script>
+  <!-- GALLERY GRID -->
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+firebase.initializeApp({
+  apiKey:"AIzaSyBoJdGfyASAGwxVlwqaF7a1aZqp_i6MXFg",
+  authDomain:"global-high-a001d.firebaseapp.com",
+  databaseURL:"https://global-high-a001d-default-rtdb.firebaseio.com",
+  projectId:"global-high-a001d",
+  appId:"1:966103646546:web:cf2198f5b8384ac85d3a8b"
+});
+
+const gallery = document.getElementById("gallery");
+
+firebase.database().ref("google").on("value", snap => {
+  gallery.innerHTML = "";
+
+  snap.forEach(child => {
+    const imgData = child.val();
+
+    const div = document.createElement("div");
+    div.className = "gallery-item";
+
+    const image = document.createElement("img");
+    image.src = imgData.imageUrl;
+    image.alt = imgData.title + " - Global High School Entebbe";
+    image.loading = "lazy";
+
+    div.appendChild(image);
+    gallery.appendChild(div);
+  });
+});
+</script>
+<script>
+// Redirect after 30 seconds (30000 milliseconds)
+setTimeout(() => {
+  window.location.href = "index.html";
+}, 30000);
+</script>
+</body>
+</html>
